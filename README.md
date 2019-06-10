@@ -1,13 +1,7 @@
-<<<<<<< HEAD
-=======
-# NAMES:
-Tristan
-Sofia Benitez
 =======
 # NAMES:
 Tristan
 
->>>>>>> d2b7311a505c1ccdd946630838b882ca0cd68a4d
 
 # Boilermaker
 
@@ -145,3 +139,5 @@ Why do all of these steps? The big reason is because we don't want our productio
 
 Svetlana
 Hello World
+
+Sofia Benitez
