@@ -9,7 +9,9 @@ import {
   AllProducts,
   SingleProduct,
   Navbar,
-  Cart
+  Cart,
+  Checkout,
+  OrderConfirm
 } from './components'
 import {me, getCartThunk} from './store'
 
@@ -38,6 +40,8 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
+            <Route path="/checkout" component={Checkout} />
+            <Route path="/orderconfirm" component={OrderConfirm} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
