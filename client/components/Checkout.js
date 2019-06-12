@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getCartThunk} from '../store/cart'
+import {addItemsThunk} from '../store/orderHistory'
+import {Link} from 'react-router-dom'
 
 const defaultState = {
   firstName: '',
@@ -35,13 +37,21 @@ class Checkout extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault()
-    //sends final state to thunk then axios request then db
-    // this.props.addCampusToThunk(this.state)
-    // this.setState(defaultState)
+    let orderTotal = 0
+    const items = this.props.cartList
+    items.forEach(item => {
+      const price = item.product.price * item.quantity
+      orderTotal += price
+    })
+    items.map(item => {
+      item.product.quantity = item.quantity
+      item.product.orderNumber = 1010
+      item.product.total = orderTotal
+      this.props.addOrder(item.product)
+    })
   }
 
   render() {
-    // console.log(this.state);
     let item
     console.log('CART PROP ', this.props)
     if (this.props.cartList[0]) {
@@ -116,17 +126,15 @@ class Checkout extends Component {
           onChange={this.handleChange}
           required
         />
-        <div>Credit Card: </div>
+        {/* <div>Credit Card: </div>
         <input
           name="creditCard"
           type="text"
           value={this.state.creditCard}
           onChange={this.handleChange}
           required
-        />
-        <button>
-          <Link to="/ordercofirm">Submit Order</Link>
-        </button>
+        /> */}
+        <button type="submit">Submit Order</button>
       </form>
     )
   }
@@ -142,7 +150,8 @@ const mapStatetoProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  getCart: () => dispatch(getCartThunk())
+  getCart: () => dispatch(getCartThunk()),
+  addOrder: item => dispatch(addItemsThunk(item))
 })
 
 export default connect(mapStatetoProps, mapDispatchToProps)(Checkout)
