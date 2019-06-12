@@ -38,7 +38,7 @@ const mapStatetoProps = (state, ownProps) => {
   console.log('ownProps', ownProps)
 
   return {
-    cartList: state.cartReducer
+    cartList: state.cart
   }
 }
 
