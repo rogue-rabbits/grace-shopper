@@ -7,8 +7,27 @@ import {connect} from 'react-redux'
 export const Cart = props => {
   console.log('props', props)
   const {cartList} = props
+  let total = 0
 
-  return <div>TEST</div>
+  return (
+    <div>
+      <h2>CART</h2>
+      {cartList.map(item => {
+        total += item.product.price * item.quantity
+        const itemTotal = item.product.price * item.quantity
+        return (
+          <div key={item.id}>
+            <h2>{item.product.name}</h2>
+            <h3>
+              Price: ${item.product.price} Quantity: {item.quantity}
+            </h3>
+            <h3>Sub Total: ${itemTotal}</h3>
+          </div>
+        )
+      })}
+      <h2>Order Total: ${total.toFixed(2)}</h2>
+    </div>
+  )
 }
 
 /**

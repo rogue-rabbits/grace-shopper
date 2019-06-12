@@ -16,13 +16,6 @@ const Cart = db.define('cart', {
       notEmpty: true
     }
   },
-  price: {
-    type: Sequelize.DECIMAL,
-    allowNull: false,
-    validate: {
-      notEmpty: true
-    }
-  },
   userId: {
     type: Sequelize.INTEGER,
     allowNull: false,
