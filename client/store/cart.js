@@ -8,6 +8,7 @@ import axios from 'axios'
 // Action Type
 const GET_CART = 'GET_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
+const UPDATE_CART = 'UPDATE_CART'
 
 //Action Creators
 const getCart = items => ({type: GET_CART, items})
@@ -15,11 +16,16 @@ const addToCart = item => ({
   type: ADD_TO_CART,
   item
 })
+const updateCart = item => ({
+  type: UPDATE_CART,
+  item
+})
 
 //Thunk Creators
 export function addingToCart(userId, itemId, quantity) {
   return async dispatch => {
     try {
+      // const existingProduct = await axios.get('/api/cart');
       const newCartItem = {
         productId: itemId,
         quantity: quantity,

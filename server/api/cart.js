@@ -28,3 +28,25 @@ router.post('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.put('/', async (req, res, next) => {
+  try {
+    const [numRows, updatedCart] = await Cart.update(
+      {quantity: req.body.quantity},
+      {
+        where: {
+          productId: req.body.productId
+        },
+        returning: true,
+        plain: true
+      }
+    )
+    if (updatedCart) {
+      res.send(updatedCart)
+    } else {
+      res.status(404).send('updated cart not found')
+    }
+  } catch (error) {
+    next(error)
+  }
+})

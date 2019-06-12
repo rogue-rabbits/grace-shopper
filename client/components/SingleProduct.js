@@ -15,6 +15,7 @@ class SingleProduct extends React.Component {
   render() {
     const product = this.props.product
     const userId = this.props.user.id
+    const cart = this.props.cart
     console.log('CART', this.props.cart)
     let quantity
     let quantityArray = Array.from(Array(10).keys())
@@ -39,7 +40,11 @@ class SingleProduct extends React.Component {
           })}
         </select>
         <button
-          onClick={() => this.props.addToCart(userId, product.id, quantity)}
+          onClick={() =>
+            cart.find(el => el.productId === product.id)
+              ? this.props.updateCart(userId, product.id, quantity)
+              : this.props.addToCart(userId, product.id, quantity)
+          }
         >
           Add to Cart
         </button>
@@ -57,6 +62,9 @@ const mapDispatchToProps = dispatch => ({
   getProduct: id => dispatch(getProduct(id)),
   addToCart: (userId, id, quantity) => {
     dispatch(addingToCart(userId, id, quantity))
+  },
+  updateCart: (userId, id, quantity) => {
+    dispatch(updatingCart(userId, id, quantity))
   }
 })
 
