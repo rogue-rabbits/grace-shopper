@@ -15,3 +15,16 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.post('/', async (req, res, next) => {
+  try {
+    const newCartItem = await Cart.create({
+      productId: req.body.productId,
+      quantity: req.body.quantity,
+      userId: req.body.userId
+    })
+    res.status(201).json(newCartItem)
+  } catch (err) {
+    next(err)
+  }
+})

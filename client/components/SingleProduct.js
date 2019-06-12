@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {getProduct} from '../store/product'
 import {addingToCart} from '../store/cart'
 import {Navbar, Product} from './index'
@@ -13,31 +14,43 @@ class SingleProduct extends React.Component {
 
   render() {
     const product = this.props.product
+    const userId = this.props.user.id
+    let quantity
+    let quantityArray = Array.from(Array(10).keys())
     return (
       <div>
         <img src={product.imageUrl} width="200px" height="auto" />
         <h2>{product.name}</h2>
         <h3>Price: ${product.price}</h3>
         <p> {product.description} </p>
-        <select>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
+        <select
+          onChange={event => {
+            quantity = parseInt(event.target.value)
+            console.log('quantity:', quantity)
+          }}
+        >
+          {quantityArray.map((element, index) => {
+            return (
+              <option key={index} value={index + 1}>
+                {element + 1}
+              </option>
+            )
+          })}
         </select>
-        <button>Add to Cart</button>
+        <button
+          onClick={() => this.props.addToCart(userId, product.id, quantity)}
+        >
+          Add to Cart
+        </button>
       </div>
     )
   }
 }
 
-const mapStateToProps = state => ({product: state.product.singleProduct})
+const mapStateToProps = state => ({
+  product: state.product.singleProduct,
+  user: state.user
+})
 const mapDispatchToProps = dispatch => ({
   getProduct: id => dispatch(getProduct(id)),
   addToCart: (userId, id, quantity) => {
