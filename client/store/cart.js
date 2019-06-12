@@ -14,11 +14,9 @@ const getCart = items => ({type: GET_CART, items})
 const addToCart = item => ({
   type: ADD_TO_CART,
   item
-  // userId,
-  // itemId,
-  // quantity
 })
 
+//Thunk Creators
 export function addingToCart(userId, itemId, quantity) {
   return async dispatch => {
     try {
@@ -27,9 +25,7 @@ export function addingToCart(userId, itemId, quantity) {
         quantity: quantity,
         userId: userId
       }
-      console.log('NEW CART ITEM:', newCartItem)
       const {data} = await axios.post('/api/cart', newCartItem)
-      console.log('DATA:', data)
       dispatch(addToCart(data))
     } catch (error) {
       console.error(error)
@@ -37,7 +33,6 @@ export function addingToCart(userId, itemId, quantity) {
   }
 }
 
-//Thunk Creators
 export function getCartThunk() {
   return async dispatch => {
     try {
@@ -58,17 +53,11 @@ export default function(state = [], action) {
       // console.log("action", action);
       return action.items
     case ADD_TO_CART:
-      // const existingItem = Cart.findById(action.item.id)
-      // if (existingItem) {
-
-      // }
-
       const newItem = {
         userId: action.userId,
         productId: action.productId,
         quantity: action.quantity
       }
-      console.log('action', action)
       return [...state, newItem]
 
     default:

@@ -15,8 +15,10 @@ class SingleProduct extends React.Component {
   render() {
     const product = this.props.product
     const userId = this.props.user.id
+    console.log('CART', this.props.cart)
     let quantity
     let quantityArray = Array.from(Array(10).keys())
+
     return (
       <div>
         <img src={product.imageUrl} width="200px" height="auto" />
@@ -26,7 +28,6 @@ class SingleProduct extends React.Component {
         <select
           onChange={event => {
             quantity = parseInt(event.target.value)
-            console.log('quantity:', quantity)
           }}
         >
           {quantityArray.map((element, index) => {
@@ -49,7 +50,8 @@ class SingleProduct extends React.Component {
 
 const mapStateToProps = state => ({
   product: state.product.singleProduct,
-  user: state.user
+  user: state.user,
+  cart: state.cart
 })
 const mapDispatchToProps = dispatch => ({
   getProduct: id => dispatch(getProduct(id)),
