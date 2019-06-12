@@ -1,8 +1,26 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
 
-class Cart extends React.Component {
-  render() {
-    return <div>TEST</div>
+/**
+ * COMPONENT
+ */
+export const Cart = props => {
+  console.log('props', props)
+  const {cartList} = props
+
+  return <div>TEST</div>
+}
+
+/**
+ * CONTAINER
+ */
+const mapStatetoProps = (state, ownProps) => {
+  console.log('state', state)
+  console.log('ownProps', ownProps)
+
+  return {
+    cartList: state.cartReducer
   }
 }
+
+export default connect(mapStatetoProps)(Cart)
