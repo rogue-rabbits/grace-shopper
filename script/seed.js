@@ -74,31 +74,26 @@ async function seed() {
     Cart.create({
       productId: 1,
       quantity: 3,
-      price: 19.0,
       userId: 1
     }),
     Cart.create({
       productId: 2,
       quantity: 2,
-      price: 19.99,
       userId: 1
     }),
     Cart.create({
       productId: 3,
       quantity: 3,
-      price: 28.0,
       userId: 2
     }),
     Cart.create({
       productId: 3,
       quantity: 9,
-      price: 28.0,
       userId: 3
     }),
     Cart.create({
       productId: 2,
       quantity: 10,
-      price: 19.99,
       userId: 3
     })
   ])

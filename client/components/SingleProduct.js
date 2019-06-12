@@ -16,7 +16,7 @@ class SingleProduct extends React.Component {
       <div>
         <img src={product.imageUrl} width="200px" height="auto" />
         <h2>{product.name}</h2>
-        <h3>{product.price}</h3>
+        <h3>Price: ${product.price}</h3>
         <p> {product.description} </p>
       </div>
     )
