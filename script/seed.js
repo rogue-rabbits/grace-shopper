@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Product} = require('../server/db/models')
+const {User, Product, Cart} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -67,6 +67,34 @@ async function seed() {
         'Indulge your senses in the flavors of Venetian Tiramisu tea. Evocative and romantic, each cup begins with a blend of delicately floral Mutan white tea and toasty Japanese Hojicha. Swirling flavors of cocoa and vanilla layer throughout the tea, accented with cocoa nibs and just a hint of brandy flavor. The result is a shimmering, deliciously complex infusion that summons up visions of Venice in every sip.',
       imageUrl:
         'https://cdn.shopify.com/s/files/1/1234/1342/products/Cup_Shots_2_05_2018_Venetian_Tiramisu_800x.jpg?v=1551286805'
+    })
+  ])
+
+  const cart = await Promise.all([
+    Cart.create({
+      productId: 1,
+      quantity: 3,
+      userId: 1
+    }),
+    Cart.create({
+      productId: 2,
+      quantity: 2,
+      userId: 1
+    }),
+    Cart.create({
+      productId: 3,
+      quantity: 3,
+      userId: 2
+    }),
+    Cart.create({
+      productId: 3,
+      quantity: 9,
+      userId: 3
+    }),
+    Cart.create({
+      productId: 2,
+      quantity: 10,
+      userId: 3
     })
   ])
 
