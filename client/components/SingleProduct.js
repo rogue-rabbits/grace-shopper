@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {getProduct} from '../store/product'
-import {addingToCart} from '../store/cart'
+import {addingToCart, updatingCart} from '../store/cart'
 import {Navbar, Product} from './index'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
@@ -17,8 +17,17 @@ class SingleProduct extends React.Component {
     const userId = this.props.user.id
     const cart = this.props.cart
     console.log('CART', this.props.cart)
-    let quantity
+    let quantity = 0
     let quantityArray = Array.from(Array(10).keys())
+    // let itemInCartId = cart.productId;
+    let existingItem = cart.filter(el => el.productId === product.id)
+    let dataQuantity = existingItem[0] ? existingItem[0].quantity : 0
+    let newQuantity = dataQuantity + quantity
+    // let dataQuantity = existingItem[0].quantity;
+    console.log('EXISTING', existingItem)
+    console.log('NEW QUANT', newQuantity)
+
+    // console.log('data quant', dataQuantity);
 
     return (
       <div>
@@ -41,8 +50,8 @@ class SingleProduct extends React.Component {
         </select>
         <button
           onClick={() =>
-            cart.find(el => el.productId === product.id)
-              ? this.props.updateCart(userId, product.id, quantity)
+            existingItem
+              ? this.props.updateCart(userId, product.id, newQuantity)
               : this.props.addToCart(userId, product.id, quantity)
           }
         >
@@ -52,6 +61,8 @@ class SingleProduct extends React.Component {
     )
   }
 }
+
+// update the quantity
 
 const mapStateToProps = state => ({
   product: state.product.singleProduct,

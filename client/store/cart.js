@@ -39,6 +39,22 @@ export function addingToCart(userId, itemId, quantity) {
   }
 }
 
+export function updatingCart(userId, itemId, quantity) {
+  return async dispatch => {
+    try {
+      const updatedCartItem = {
+        productId: itemId,
+        quantity: quantity,
+        userId: userId
+      }
+      const {data} = await axios.put('/api/cart', updatedCartItem)
+      dispatch(addToCart(data))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+
 export function getCartThunk() {
   return async dispatch => {
     try {
@@ -65,6 +81,13 @@ export default function(state = [], action) {
         quantity: action.quantity
       }
       return [...state, newItem]
+    case UPDATE_CART:
+      const updatedItem = {
+        userId: action.userId,
+        productId: action.productId,
+        quantity: action.quantity
+      }
+      return [...state, updatedItem]
 
     default:
       return state
