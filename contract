@@ -1,0 +1,38 @@
+#ROGUE RABBITS CONTRACT:
+
+##Roles:
+Taskmaster
+Gitmaster
+Testmaster
+
+##Daily Process:
+
+Morning standup (after REACTOs) orchestrated by previous Taskmaster
+Review all tasks completed in previous day
+Bring blocks that occurred
+Determine new tasks and pairs for the day
+Work on assigned task(s) and frequently commit to github
+Standup after lunch
+Update on progress 
+Discuss any issues blocking you from making progress
+Keep working on assigned tasks as a pair
+If task is finished early, discuss with group for additional features
+Regroup at the end of the day and go over other’s code merged into master
+
+##Team Expectations:
+Hear each other’s opinions out
+Message the group when you change what you’re working on
+Be on time for standup
+Bring up any blocking issue quickly
+Don’t overload tasks for the weekend
+Explicitly discuss what we’re working on after hours (if we plan on it)
+
+##Issues:
+
+If we’re divided on a decision:
+Break into a group and discuss
+Vote on it
+If we’re stumped
+Take a short break to get tea
+Talk to group members if you’re stuck for more than 15 mins
+Discuss with fellow after having done research and discussed with group
