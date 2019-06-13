@@ -35,7 +35,8 @@ router.put('/', async (req, res, next) => {
       {quantity: req.body.quantity},
       {
         where: {
-          productId: req.body.productId
+          productId: req.body.productId,
+          userId: req.body.userId
         },
         returning: true,
         plain: true

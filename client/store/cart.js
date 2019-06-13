@@ -8,7 +8,6 @@ const UPDATE_CART = 'UPDATE_CART'
 
 const EMPTY_CART = 'EMPTY_CART'
 
-
 //Action Creators
 const getCart = items => ({type: GET_CART, items})
 const addToCart = item => ({
@@ -21,7 +20,6 @@ const updateCart = item => ({
 })
 
 export const emptyCart = () => ({type: EMPTY_CART})
-
 
 //Thunk Creators
 export function addingToCart(userId, itemId, quantity) {
@@ -99,10 +97,11 @@ export default function(state = [], action) {
         productId: action.productId,
         quantity: action.quantity
       }
+
       return state.map(
         el =>
-          el.productId === action.item.productId &&
-          el.userId === action.item.userId
+          el.userId === action.item.userId &&
+          el.productId === action.item.productId
             ? action.item
             : el
       )
