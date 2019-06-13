@@ -57,6 +57,14 @@ export function updatingCart(userId, itemId, selectedQuantity, dataQuantity) {
         userId: userId
       }
       const {data} = await axios.put('/api/cart', updatedCartItem)
+      const product = await axios.get(`/api/products/${data.productId}`)
+      //attach product information to newCartItem
+      data.product = product.data
+      //get req.user from express
+      const user = await axios.get('/api/user')
+      //attach user information to newCartItem
+      data.user = user
+      console.log('DATA', data)
       dispatch(updateCart(data))
     } catch (error) {
       console.error(error)
@@ -92,11 +100,7 @@ export default function(state = [], action) {
       }
       return [...state, newItem]
     case UPDATE_CART:
-      const updatedItem = {
-        userId: action.userId,
-        productId: action.productId,
-        quantity: action.quantity
-      }
+      console.log('ACTION ITEM', action.item)
 
       return state.map(
         el =>
