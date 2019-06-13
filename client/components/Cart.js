@@ -1,14 +1,14 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 
 /**
  * COMPONENT
  */
 export const Cart = props => {
-  console.log('props', props)
-  const {cartList} = props
-  let total = 0
+  const {cartList, isLoggedIn} = props
 
+  let total = 0
   return (
     <div>
       <h2>CART</h2>
@@ -26,6 +26,14 @@ export const Cart = props => {
         )
       })}
       <h2>Order Total: ${total.toFixed(2)}</h2>
+
+      <button>
+        {isLoggedIn ? (
+          <Link to="/checkout"> Checkout and Pay </Link>
+        ) : (
+          <Link to="/login">Login and Checkout</Link>
+        )}
+      </button>
     </div>
   )
 }
@@ -33,12 +41,10 @@ export const Cart = props => {
 /**
  * CONTAINER
  */
-const mapStatetoProps = (state, ownProps) => {
-  console.log('state', state)
-  console.log('ownProps', ownProps)
-
+const mapStatetoProps = state => {
   return {
-    cartList: state.cart
+    cartList: state.cart,
+    isLoggedIn: !!state.user.id
   }
 }
 
