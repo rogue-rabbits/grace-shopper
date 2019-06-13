@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {getProduct} from '../store/product'
-import {addingToCart} from '../store/cart'
+import {addingToCart, updatingCart} from '../store/cart'
 import {Navbar, Product} from './index'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
@@ -15,9 +15,11 @@ class SingleProduct extends React.Component {
   render() {
     const product = this.props.product
     const userId = this.props.user.id
-    console.log('CART', this.props.cart)
-    let quantity
+    const cart = this.props.cart
+    let quantity = 1
     let quantityArray = Array.from(Array(10).keys())
+    let existingItem = cart.filter(el => el.productId === product.id)
+    let dataQuantity = existingItem[0] ? existingItem[0].quantity : 0
 
     return (
       <div>
@@ -39,7 +41,16 @@ class SingleProduct extends React.Component {
           })}
         </select>
         <button
-          onClick={() => this.props.addToCart(userId, product.id, quantity)}
+          onClick={() => {
+            existingItem.length
+              ? this.props.updateCart(
+                  userId,
+                  product.id,
+                  quantity,
+                  dataQuantity
+                )
+              : this.props.addToCart(userId, product.id, quantity)
+          }}
         >
           Add to Cart
         </button>
@@ -47,6 +58,8 @@ class SingleProduct extends React.Component {
     )
   }
 }
+
+// update the quantity
 
 const mapStateToProps = state => ({
   product: state.product.singleProduct,
@@ -57,6 +70,9 @@ const mapDispatchToProps = dispatch => ({
   getProduct: id => dispatch(getProduct(id)),
   addToCart: (userId, id, quantity) => {
     dispatch(addingToCart(userId, id, quantity))
+  },
+  updateCart: (userId, itemId, quantity, newQuantity) => {
+    dispatch(updatingCart(userId, itemId, quantity, newQuantity))
   }
 })
 
