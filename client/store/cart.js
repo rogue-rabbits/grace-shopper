@@ -39,16 +39,17 @@ export function addingToCart(userId, itemId, quantity) {
   }
 }
 
-export function updatingCart(userId, itemId, quantity) {
+export function updatingCart(userId, itemId, selectedQuantity, dataQuantity) {
   return async dispatch => {
     try {
+      const newQuantity = selectedQuantity + dataQuantity
       const updatedCartItem = {
         productId: itemId,
-        quantity: quantity,
+        quantity: newQuantity,
         userId: userId
       }
       const {data} = await axios.put('/api/cart', updatedCartItem)
-      dispatch(addToCart(data))
+      dispatch(updateCart(data))
     } catch (error) {
       console.error(error)
     }
@@ -87,7 +88,13 @@ export default function(state = [], action) {
         productId: action.productId,
         quantity: action.quantity
       }
-      return [...state, updatedItem]
+      return state.map(
+        el =>
+          el.productId === action.item.productId &&
+          el.userId === action.item.userId
+            ? action.item
+            : el
+      )
 
     default:
       return state

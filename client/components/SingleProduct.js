@@ -16,18 +16,10 @@ class SingleProduct extends React.Component {
     const product = this.props.product
     const userId = this.props.user.id
     const cart = this.props.cart
-    console.log('CART', this.props.cart)
-    let quantity = 0
+    let quantity = 1
     let quantityArray = Array.from(Array(10).keys())
-    // let itemInCartId = cart.productId;
     let existingItem = cart.filter(el => el.productId === product.id)
     let dataQuantity = existingItem[0] ? existingItem[0].quantity : 0
-    let newQuantity = dataQuantity + quantity
-    // let dataQuantity = existingItem[0].quantity;
-    console.log('EXISTING', existingItem)
-    console.log('NEW QUANT', newQuantity)
-
-    // console.log('data quant', dataQuantity);
 
     return (
       <div>
@@ -49,11 +41,16 @@ class SingleProduct extends React.Component {
           })}
         </select>
         <button
-          onClick={() =>
-            existingItem
-              ? this.props.updateCart(userId, product.id, newQuantity)
+          onClick={() => {
+            existingItem.length
+              ? this.props.updateCart(
+                  userId,
+                  product.id,
+                  quantity,
+                  dataQuantity
+                )
               : this.props.addToCart(userId, product.id, quantity)
-          }
+          }}
         >
           Add to Cart
         </button>
@@ -74,8 +71,8 @@ const mapDispatchToProps = dispatch => ({
   addToCart: (userId, id, quantity) => {
     dispatch(addingToCart(userId, id, quantity))
   },
-  updateCart: (userId, id, quantity) => {
-    dispatch(updatingCart(userId, id, quantity))
+  updateCart: (userId, itemId, quantity, newQuantity) => {
+    dispatch(updatingCart(userId, itemId, quantity, newQuantity))
   }
 })
 
