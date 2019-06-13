@@ -1,10 +1,5 @@
 import axios from 'axios'
 
-//Initial State
-// const initialState = {
-//   allItems: []
-// }
-
 // Action Type
 const GET_CART = 'GET_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
@@ -25,7 +20,12 @@ export function addingToCart(userId, itemId, quantity) {
         quantity: quantity,
         userId: userId
       }
-      const {data} = await axios.post('/api/cart', newCartItem)
+      let {data} = await axios.post('/api/cart', newCartItem)
+      //get the productId information from database
+      const product = await axios.get(`/api/products/${data.productId}`)
+      //attach product information to newCartItem
+      data.product = product.data
+      console.log('DATA ', data)
       dispatch(addToCart(data))
     } catch (error) {
       console.error(error)
@@ -50,14 +50,16 @@ export function getCartThunk() {
 export default function(state = [], action) {
   switch (action.type) {
     case GET_CART:
-      // console.log("action", action);
       return action.items
     case ADD_TO_CART:
       const newItem = {
-        userId: action.userId,
-        productId: action.productId,
-        quantity: action.quantity
+        userId: action.item.userId,
+        productId: action.item.productId,
+        quantity: action.item.quantity,
+        product: action.item.product
       }
+      let curr = [...state, newItem]
+      console.log('STATE: ', curr)
       return [...state, newItem]
 
     default:
