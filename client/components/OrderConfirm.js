@@ -10,7 +10,7 @@ export const Cart = props => {
 
   return (
     <div>
-      <h2>ORDER COMPLETED !! $$</h2>
+      <h2>ORDER COMPLETED! THANK YOU.</h2>
     </div>
   )
 }
