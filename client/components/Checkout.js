@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getCartThunk, emptyCart} from '../store/cart'
-import {addItemsThunk} from '../store/orderHistory'
+import {addItemsThunk, updateLastOrder} from '../store/orderHistory'
 
 const defaultState = {
   firstName: '',
@@ -18,10 +18,12 @@ const defaultState = {
 class Checkout extends Component {
   constructor(props) {
     super(props)
+    console.log('props', props)
     this.state = defaultState
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
+
   componentDidMount() {
     this.props.getCart()
   }
@@ -40,9 +42,13 @@ class Checkout extends Component {
       const price = item.product.price * item.quantity
       orderTotal += price
     })
+    console.log('this.props', this.props)
+
+    const orderNumber = this.props.lastOrderNumber + 1
+    this.props.updateLastOrder(orderNumber)
     items.map(item => {
       item.product.quantity = item.quantity
-      item.product.orderNumber = 1010
+      item.product.orderNumber = orderNumber
       item.product.total = orderTotal
       this.props.addOrder(item.product)
     })
@@ -52,7 +58,7 @@ class Checkout extends Component {
 
   render() {
     let item
-    console.log('cart ', this.props.cartList)
+
     if (this.props.cartList[0]) {
       item = this.props.cartList[0].user
     } else {
@@ -144,14 +150,16 @@ class Checkout extends Component {
  */
 const mapStatetoProps = state => {
   return {
-    cartList: state.cart
+    cartList: state.cart,
+    lastOrderNumber: state.orderHistory.lastOrderNum
   }
 }
 
 const mapDispatchToProps = dispatch => ({
   getCart: () => dispatch(getCartThunk()),
   addOrder: item => dispatch(addItemsThunk(item)),
-  emptyCart: () => dispatch(emptyCart())
+  emptyCart: () => dispatch(emptyCart()),
+  updateLastOrder: item => dispatch(updateLastOrder(item))
 })
 
 export default connect(mapStatetoProps, mapDispatchToProps)(Checkout)

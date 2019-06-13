@@ -13,7 +13,7 @@ import {
   Checkout,
   OrderConfirm
 } from './components'
-import {me, getCartThunk} from './store'
+import {me, getCartThunk, getLastOrderThunk} from './store'
 
 /**
  * COMPONENT
@@ -68,6 +68,7 @@ const mapDispatch = dispatch => {
     loadInitialData() {
       dispatch(me())
       dispatch(getCartThunk())
+      dispatch(getLastOrderThunk())
     }
   }
 }
