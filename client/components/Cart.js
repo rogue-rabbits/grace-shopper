@@ -9,7 +9,6 @@ export const Cart = props => {
   const {cartList, isLoggedIn} = props
 
   let total = 0
-
   return (
     <div>
       <h2>CART</h2>
