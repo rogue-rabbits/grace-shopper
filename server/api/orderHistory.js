@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {OrderHistory} = require('../db/models')
+const {OrderHistory, Cart} = require('../db/models')
 module.exports = router
 
 router.post('/', async (req, res, next) => {
@@ -11,6 +11,11 @@ router.post('/', async (req, res, next) => {
       total: req.body.total,
       orderNumber: req.body.orderNumber,
       userId: req.user.id
+    })
+    await Cart.destroy({
+      where: {
+        userId: req.user.id
+      }
     })
     res.status(201).send(newItem)
   } catch (err) {

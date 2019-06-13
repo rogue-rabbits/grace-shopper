@@ -1,8 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getCartThunk} from '../store/cart'
+import {getCartThunk, emptyCart} from '../store/cart'
 import {addItemsThunk} from '../store/orderHistory'
-import {Link} from 'react-router-dom'
 
 const defaultState = {
   firstName: '',
@@ -25,8 +24,6 @@ class Checkout extends Component {
   }
   componentDidMount() {
     this.props.getCart()
-
-    console.log(this.state)
   }
   //updates this.state
   handleChange(evt) {
@@ -49,11 +46,13 @@ class Checkout extends Component {
       item.product.total = orderTotal
       this.props.addOrder(item.product)
     })
+    this.props.emptyCart()
+    this.props.history.push('/orderconfirmed')
   }
 
   render() {
     let item
-    console.log('CART PROP ', this.props)
+    console.log('cart ', this.props.cartList)
     if (this.props.cartList[0]) {
       item = this.props.cartList[0].user
     } else {
@@ -151,7 +150,8 @@ const mapStatetoProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   getCart: () => dispatch(getCartThunk()),
-  addOrder: item => dispatch(addItemsThunk(item))
+  addOrder: item => dispatch(addItemsThunk(item)),
+  emptyCart: () => dispatch(emptyCart())
 })
 
 export default connect(mapStatetoProps, mapDispatchToProps)(Checkout)

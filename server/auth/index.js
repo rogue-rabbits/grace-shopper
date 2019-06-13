@@ -43,4 +43,9 @@ router.get('/me', (req, res) => {
   res.json(req.user)
 })
 
+// router.get('/user', (req, res) => {
+//   console.log('req.user ---->', req.user)
+//   res.json(req.user)
+// })
+
 router.use('/google', require('./google'))
