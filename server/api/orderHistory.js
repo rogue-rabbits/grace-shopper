@@ -22,3 +22,31 @@ router.post('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.get('/lastOrder', async (req, res, next) => {
+  try {
+    const orderNumber = await OrderHistory.findAll({
+      limit: 1,
+      // where: {
+      //your where conditions, or without them if you need ANY entry
+      // },
+      order: [['orderNumber', 'DESC']]
+    })
+    res.json(orderNumber)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/', async (req, res, next) => {
+  try {
+    const order = await OrderHistory.findAll({
+      where: {
+        userId: req.user.id
+      }
+    })
+    res.json(order)
+  } catch (err) {
+    next(err)
+  }
+})

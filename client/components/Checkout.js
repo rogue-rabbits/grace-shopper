@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getCartThunk, emptyCart} from '../store/cart'
-import {addItemsThunk} from '../store/orderHistory'
+
+import {addItemsThunk, updateLastOrder} from '../store/orderHistory'
 import Button from '@material-ui/core/Button'
 
 const defaultState = {
@@ -23,7 +24,20 @@ class Checkout extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
+
   componentDidMount() {
+    const user = this.props.cartList[0].user
+    console.log('props ', this.props)
+    this.setState({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      address1: user.address1,
+      address2: user.address2,
+      city: user.city,
+      state: user.state,
+      zipCode: user.zipCode,
+      email: user.email
+    })
     this.props.getCart()
   }
   //updates this.state
@@ -41,9 +55,13 @@ class Checkout extends Component {
       const price = item.product.price * item.quantity
       orderTotal += price
     })
+    console.log('this.props', this.props)
+
+    const orderNumber = this.props.lastOrderNumber + 1
+    this.props.updateLastOrder(orderNumber)
     items.map(item => {
       item.product.quantity = item.quantity
-      item.product.orderNumber = 1010
+      item.product.orderNumber = orderNumber
       item.product.total = orderTotal
       this.props.addOrder(item.product)
     })
@@ -53,7 +71,7 @@ class Checkout extends Component {
 
   render() {
     let item
-    console.log('cart ', this.props.cartList)
+
     if (this.props.cartList[0]) {
       item = this.props.cartList[0].user
     } else {
@@ -66,7 +84,7 @@ class Checkout extends Component {
         <input
           name="firstName"
           type="text"
-          value={item.firstName}
+          value={this.state.firstName}
           onChange={this.handleChange}
           required
         />
@@ -74,7 +92,7 @@ class Checkout extends Component {
         <input
           name="lastName"
           type="text"
-          value={item.lastName}
+          value={this.state.lastName}
           onChange={this.handleChange}
           required
         />
@@ -82,7 +100,7 @@ class Checkout extends Component {
         <input
           name="address1"
           type="text"
-          value={item.address1}
+          value={this.state.address1}
           onChange={this.handleChange}
           required
         />
@@ -98,7 +116,7 @@ class Checkout extends Component {
         <input
           name="city"
           type="text"
-          value={item.city}
+          value={this.state.city}
           onChange={this.handleChange}
           required
         />
@@ -106,7 +124,7 @@ class Checkout extends Component {
         <input
           name="state"
           type="text"
-          value={item.state}
+          value={this.state.state}
           onChange={this.handleChange}
           required
         />
@@ -114,7 +132,7 @@ class Checkout extends Component {
         <input
           name="zipCode"
           type="text"
-          value={item.zipCode}
+          value={this.state.zipCode}
           onChange={this.handleChange}
           required
         />
@@ -122,7 +140,7 @@ class Checkout extends Component {
         <input
           name="email"
           type="text"
-          value={item.email}
+          value={this.state.email}
           onChange={this.handleChange}
           required
         />
@@ -145,14 +163,16 @@ class Checkout extends Component {
  */
 const mapStatetoProps = state => {
   return {
-    cartList: state.cart
+    cartList: state.cart,
+    lastOrderNumber: state.orderHistory.lastOrderNum
   }
 }
 
 const mapDispatchToProps = dispatch => ({
   getCart: () => dispatch(getCartThunk()),
   addOrder: item => dispatch(addItemsThunk(item)),
-  emptyCart: () => dispatch(emptyCart())
+  emptyCart: () => dispatch(emptyCart()),
+  updateLastOrder: item => dispatch(updateLastOrder(item))
 })
 
 export default connect(mapStatetoProps, mapDispatchToProps)(Checkout)
