@@ -10,7 +10,7 @@ export const UserHome = props => {
   const {email, name} = props
   console.log('NAME', name)
   return (
-    <div>
+    <div className="container">
       <h3>Welcome, {name}!</h3>
       <AllProducts />
     </div>

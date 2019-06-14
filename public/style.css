@@ -2,7 +2,11 @@ body {
   font-family: 'Roboto', sans-serif;
   /* font-family: sans-serif; */
 }
-
+h1 {
+  font-family: 'Courgette', cursive;
+  margin: 0;
+  padding: 5px;
+}
 a {
   text-decoration: none;
 }
@@ -14,6 +18,7 @@ label {
 nav a {
   display: inline-block;
   margin: 1em;
+  color: white;
 }
 
 form div {
@@ -35,6 +40,8 @@ form div {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  background-color: #4c5b5c;
+  border-radius: 4px;
 }
 
 .material-icons.md-dark.md-inactive {
@@ -44,9 +51,7 @@ form div {
 .cards-container {
   justify-content: space-around;
   align-items: stretch;
-  display: flex;
   flex: 1 0 100%;
-  flex-wrap: wrap;
   flex-direction: row;
 }
 
@@ -54,8 +59,16 @@ form div {
   padding: 14px 28px;
 }
 
-.header {
+.title-header {
   text-align: center;
+  background-color: #d5a021;
+  margin: 0;
+  height: 100%;
+  padding: 10px 0 10px 0;
+}
+
+.container {
+  background-color: #d8cfaf;
 }
 
 .card {
@@ -63,8 +76,18 @@ form div {
   margin: 5px;
   align-items: center;
   padding: 30px;
+  background-color: #493843;
 }
 
-.center-contents {
+.center-card-contents {
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card-image {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }

@@ -78,7 +78,7 @@ async function seed() {
         'https://cdn.shopify.com/s/files/1/1234/1342/products/Harney_Flavored_Matcha_White_Peach_800x.jpg?v=1551287436'
     }),
     Product.create({
-      name: 'Enlish Breakfast',
+      name: 'English Breakfast',
       type: 'Black Tea',
       price: 50.0,
       description:
