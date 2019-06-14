@@ -39,7 +39,7 @@ export function addingToCart(userId, itemId, quantity) {
       //get req.user from express
       const user = await axios.get('/api/user')
       //attach user information to newCartItem
-      data.user = user
+      data.user = user.data
       dispatch(addToCart(data))
     } catch (error) {
       console.error(error)
@@ -63,8 +63,7 @@ export function updatingCart(userId, itemId, selectedQuantity, dataQuantity) {
       //get req.user from express
       const user = await axios.get('/api/user')
       //attach user information to newCartItem
-      data.user = user
-      console.log('DATA', data)
+      data.user = user.data
       dispatch(updateCart(data))
     } catch (error) {
       console.error(error)
@@ -100,8 +99,6 @@ export default function(state = [], action) {
       }
       return [...state, newItem]
     case UPDATE_CART:
-      console.log('ACTION ITEM', action.item)
-
       return state.map(
         el =>
           el.userId === action.item.userId &&
