@@ -18,13 +18,24 @@ const defaultState = {
 class Checkout extends Component {
   constructor(props) {
     super(props)
-    console.log('props', props)
     this.state = defaultState
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentDidMount() {
+    const user = this.props.cartList[0].user
+    console.log('props ', this.props)
+    this.setState({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      address1: user.address1,
+      address2: user.address2,
+      city: user.city,
+      state: user.state,
+      zipCode: user.zipCode,
+      email: user.email
+    })
     this.props.getCart()
   }
   //updates this.state
@@ -71,7 +82,7 @@ class Checkout extends Component {
         <input
           name="firstName"
           type="text"
-          value={item.firstName}
+          value={this.state.firstName}
           onChange={this.handleChange}
           required
         />
@@ -79,7 +90,7 @@ class Checkout extends Component {
         <input
           name="lastName"
           type="text"
-          value={item.lastName}
+          value={this.state.lastName}
           onChange={this.handleChange}
           required
         />
@@ -87,7 +98,7 @@ class Checkout extends Component {
         <input
           name="address1"
           type="text"
-          value={item.address1}
+          value={this.state.address1}
           onChange={this.handleChange}
           required
         />
@@ -103,7 +114,7 @@ class Checkout extends Component {
         <input
           name="city"
           type="text"
-          value={item.city}
+          value={this.state.city}
           onChange={this.handleChange}
           required
         />
@@ -111,7 +122,7 @@ class Checkout extends Component {
         <input
           name="state"
           type="text"
-          value={item.state}
+          value={this.state.state}
           onChange={this.handleChange}
           required
         />
@@ -119,7 +130,7 @@ class Checkout extends Component {
         <input
           name="zipCode"
           type="text"
-          value={item.zipCode}
+          value={this.state.zipCode}
           onChange={this.handleChange}
           required
         />
@@ -127,7 +138,7 @@ class Checkout extends Component {
         <input
           name="email"
           type="text"
-          value={item.email}
+          value={this.state.email}
           onChange={this.handleChange}
           required
         />
