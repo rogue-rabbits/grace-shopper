@@ -41,7 +41,6 @@ form div {
   flex-direction: row;
   justify-content: flex-end;
   background-color: #4c5b5c;
-  border-radius: 4px;
 }
 
 .material-icons.md-dark.md-inactive {
@@ -52,7 +51,7 @@ form div {
   justify-content: space-around;
   align-items: stretch;
   flex: 1 0 100%;
-  flex-direction: row;
+  /* flex-direction: row; */
 }
 
 .primary-buttons {
@@ -61,7 +60,8 @@ form div {
 
 .title-header {
   text-align: center;
-  background-color: #d5a021;
+  background-color: #00a878;
+  /* background-color: #d5a021; */
   margin: 0;
   height: 100%;
   padding: 10px 0 10px 0;
@@ -72,6 +72,7 @@ form div {
 }
 
 .card {
+  /* display: flex; */
   flex: 0 0 25%;
   margin: 5px;
   align-items: center;
@@ -79,15 +80,29 @@ form div {
   background-color: #493843;
 }
 
-.center-card-contents {
+.card-contents {
   padding: 10px;
+  flex: 1 0 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
 }
 
 .card-image {
+  /* display: flex; */
+  /* flex-direction: row; */
+  flex: 1 0 100%;
+  justify-content: space-around;
+}
+.single-product-container {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  padding: 20px;
+}
+
+.single-product-left {
+  padding: 10px;
+}
+.single-product-right {
+  padding: 10px;
 }

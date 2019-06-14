@@ -6,6 +6,7 @@ import {Navbar, Product} from './index'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import Button from '@material-ui/core/Button'
+import Card from '@material-ui/core/Paper'
 
 class SingleProduct extends React.Component {
   componentDidMount() {
@@ -23,40 +24,45 @@ class SingleProduct extends React.Component {
     let dataQuantity = existingItem[0] ? existingItem[0].quantity : 0
 
     return (
-      <div>
-        <img src={product.imageUrl} width="200px" height="auto" />
-        <h2>{product.name}</h2>
-        <h3>Price: ${product.price}</h3>
-        <p> {product.description} </p>
-        <select
-          onChange={event => {
-            quantity = parseInt(event.target.value)
-          }}
-        >
-          {quantityArray.map((element, index) => {
-            return (
-              <option key={index} value={index + 1}>
-                {element + 1}
-              </option>
-            )
-          })}
-        </select>
-        <Button
-          variant="contained"
-          className="primary-buttons"
-          onClick={() => {
-            existingItem.length
-              ? this.props.updateCart(
-                  userId,
-                  product.id,
-                  quantity,
-                  dataQuantity
-                )
-              : this.props.addToCart(userId, product.id, quantity)
-          }}
-        >
-          Add to Cart
-        </Button>
+      <div className="single-product-container">
+        <Card className="single-product-left">
+          <img src={product.imageUrl} width="200px" height="auto" />
+        </Card>
+        <div className="single-product-right">
+          {' '}
+          <h2>{product.name}</h2>
+          <h3>Price: ${product.price}</h3>
+          <p> {product.description} </p>
+          <select
+            onChange={event => {
+              quantity = parseInt(event.target.value)
+            }}
+          >
+            {quantityArray.map((element, index) => {
+              return (
+                <option key={index} value={index + 1}>
+                  {element + 1}
+                </option>
+              )
+            })}
+          </select>
+          <Button
+            variant="contained"
+            className="primary-buttons"
+            onClick={() => {
+              existingItem.length
+                ? this.props.updateCart(
+                    userId,
+                    product.id,
+                    quantity,
+                    dataQuantity
+                  )
+                : this.props.addToCart(userId, product.id, quantity)
+            }}
+          >
+            Add to Cart
+          </Button>
+        </div>
       </div>
     )
   }

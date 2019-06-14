@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 const Product = props => {
   const product = props.product
   return (
-    <div className="center-card-contents" key={product.key}>
+    <div className="card-contents" key={product.key}>
       <Link to={`/products/${product.id}`}>
         <img
           className="card-image"
