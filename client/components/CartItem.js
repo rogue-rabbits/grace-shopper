@@ -52,19 +52,12 @@ class CartItem extends React.Component {
         <h2>{item.product.name}</h2>
         <h3>Price: ${item.product.price}</h3>
         <h3>
-          {/* <form onSubmit={this.handleSubmit}> */}
-          <div>Quantity: </div>
-          {/* <input
-              name="quantity"
-              type="text"
-              value={this.state.quantity}
-              onChange={this.handleChange}
-              required
-            /> */}
+          <div>Quantity: {item.quantity}</div>
           <select
             onChange={event => {
               this.setState({quantity: parseInt(event.target.value)})
             }}
+            defaultValue={this.state.quantity}
           >
             {quantityArray.map((element, index) => {
               return (
@@ -78,7 +71,6 @@ class CartItem extends React.Component {
           <button type="submit" onClick={this.handleSubmit}>
             Update Quantity
           </button>
-          {/* </form> */}
           <button type="button" onClick={this.handleDelete}>
             Remove
           </button>
