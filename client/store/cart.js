@@ -39,7 +39,7 @@ export function addingToCart(userId, itemId, quantity) {
       //get req.user from express
       const user = await axios.get('/api/user')
       //attach user information to newCartItem
-      data.user = user
+      data.user = user.data
       dispatch(addToCart(data))
     } catch (error) {
       console.error(error)
@@ -63,7 +63,7 @@ export function updatingCart(userId, itemId, selectedQuantity, dataQuantity) {
       //get req.user from express
       const user = await axios.get('/api/user')
       //attach user information to newCartItem
-      data.user = user
+      data.user = user.data
       console.log('DATA', data)
       dispatch(updateCart(data))
     } catch (error) {
