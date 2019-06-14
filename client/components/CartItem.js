@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {updatingCart} from '../store/cart'
+import {updatingCart, deletingItem} from '../store/cart'
 
 /**
  * COMPONENT
@@ -16,6 +16,7 @@ class CartItem extends React.Component {
     this.state = defaultState
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
   componentDidMount() {
@@ -35,6 +36,11 @@ class CartItem extends React.Component {
     const item = this.state.item
     const quantity = this.state.quantity
     this.props.updateCart(item.userId, item.product.id, 0, quantity)
+  }
+
+  handleDelete() {
+    const productId = this.state.item.productId
+    this.props.deleteItem(productId)
   }
 
   render() {
@@ -58,6 +64,9 @@ class CartItem extends React.Component {
             />
             <button type="submit">Update Quantity</button>
           </form>
+          <button type="button" onClick={this.handleDelete}>
+            Remove
+          </button>
         </h3>
         <h3>Sub Total: ${itemTotal}</h3>
       </div>
@@ -68,6 +77,9 @@ class CartItem extends React.Component {
 const mapDispatchToProps = dispatch => ({
   updateCart: (userId, itemId, quantity, newQuantity) => {
     dispatch(updatingCart(userId, itemId, quantity, newQuantity))
+  },
+  deleteItem: productId => {
+    dispatch(deletingItem(productId))
   }
 })
 
