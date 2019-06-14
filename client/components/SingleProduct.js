@@ -5,6 +5,7 @@ import {addingToCart, updatingCart} from '../store/cart'
 import {Navbar, Product} from './index'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import Button from '@material-ui/core/Button'
 
 class SingleProduct extends React.Component {
   componentDidMount() {
@@ -40,7 +41,7 @@ class SingleProduct extends React.Component {
             )
           })}
         </select>
-        <button
+        <Button
           onClick={() => {
             existingItem.length
               ? this.props.updateCart(
@@ -53,7 +54,7 @@ class SingleProduct extends React.Component {
           }}
         >
           Add to Cart
-        </button>
+        </Button>
       </div>
     )
   }
