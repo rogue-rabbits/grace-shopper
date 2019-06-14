@@ -7,11 +7,11 @@ import {AllProducts} from './index.js'
  * COMPONENT
  */
 export const UserHome = props => {
-  const {email} = props
-
+  const {email, name} = props
+  console.log('NAME', name)
   return (
     <div>
-      <h3>Welcome, {email}</h3>
+      <h3>Welcome, {name}!</h3>
       <AllProducts />
     </div>
   )
@@ -22,7 +22,8 @@ export const UserHome = props => {
  */
 const mapState = state => {
   return {
-    email: state.user.email
+    email: state.user.email,
+    name: state.user.firstName
   }
 }
 
