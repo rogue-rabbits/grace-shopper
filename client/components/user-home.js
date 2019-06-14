@@ -8,7 +8,6 @@ import {AllProducts} from './index.js'
  */
 export const UserHome = props => {
   const {email, name} = props
-  console.log('NAME', name)
   return (
     <div className="container">
       <h3>Welcome, {name}!</h3>

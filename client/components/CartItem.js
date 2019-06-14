@@ -28,14 +28,13 @@ class CartItem extends React.Component {
     this.setState({
       [evt.target.name]: Number(evt.target.value)
     })
-    console.log('state: ', this.state)
   }
 
   handleSubmit(evt) {
     evt.preventDefault()
     const item = this.state.item
     const quantity = this.state.quantity
-    this.props.updateCart(item.user.id, item.product.id, 0, quantity)
+    this.props.updateCart(item.userId, item.product.id, 0, quantity)
   }
 
   render() {
