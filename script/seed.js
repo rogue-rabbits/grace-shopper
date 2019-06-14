@@ -67,6 +67,33 @@ async function seed() {
         'Indulge your senses in the flavors of Venetian Tiramisu tea. Evocative and romantic, each cup begins with a blend of delicately floral Mutan white tea and toasty Japanese Hojicha. Swirling flavors of cocoa and vanilla layer throughout the tea, accented with cocoa nibs and just a hint of brandy flavor. The result is a shimmering, deliciously complex infusion that summons up visions of Venice in every sip.',
       imageUrl:
         'https://cdn.shopify.com/s/files/1/1234/1342/products/Cup_Shots_2_05_2018_Venetian_Tiramisu_800x.jpg?v=1551286805'
+    }),
+    Product.create({
+      name: 'Matcha',
+      type: 'Green Tea',
+      price: 36.0,
+      description:
+        "Powdered green teas have been consumed in China and Japan for centuries. However it is only in the last few decades that Westerners have acquired a taste for this ancient tea. We enjoy the bracing vegetal flavors, as well as the unusual process for preparing the tea. We offer a range of thin, thick and extra thick Matcha grades depending upon your taste and purpose, as well as accessories you'll need for preparation and serving. Be sure to check out our tea collections for more delicious brew options.",
+      imageUrl:
+        'https://cdn.shopify.com/s/files/1/1234/1342/products/Harney_Flavored_Matcha_White_Peach_800x.jpg?v=1551287436'
+    }),
+    Product.create({
+      name: 'English Breakfast',
+      type: 'Black Tea',
+      price: 50.0,
+      description:
+        "There are many versions of English Breakfast tea. Ours has an ancient pedigree. Researchers have traced its heritage back to the black tea the English drank regularly in the 1800's. It is, simply, China Black 100% Keemun. A simple way to start your hectic day! ",
+      imageUrl:
+        'https://cdn.shopify.com/s/files/1/1234/1342/products/Cup_Shots_English_Breakfast_800x.jpg?v=1554494277'
+    }),
+    Product.create({
+      name: 'Darjeeling',
+      type: 'Black Tea',
+      price: 21.0,
+      description:
+        'High in the mountains, deep in the mists that surround the Himalayas is Darjeeling, "Queen of Teas." Our Darjeeling tea is a blend of First Flush and Autumnal teas from the best gardens. This mixture yields a light color in the cup  a fragrant nose.',
+      imageUrl:
+        'https://cdn.shopify.com/s/files/1/1234/1342/products/Cup_Shots_Darjeeling_800x.jpg?v=1554129251'
     })
   ])
 

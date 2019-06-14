@@ -4,12 +4,21 @@ import {Link} from 'react-router-dom'
 const Product = props => {
   const product = props.product
   return (
-    <div key={product.key}>
+    <div className="card-contents" key={product.key}>
       <Link to={`/products/${product.id}`}>
-        <img src={product.imageUrl} width="200px" height="auto" />
-        <h2>{product.name}</h2>{' '}
+        <img
+          className="card-image"
+          src={product.imageUrl}
+          width="200px"
+          height="auto"
+        />
       </Link>
-      <h3>Price: ${product.price}</h3>
+      <div>
+        <Link to={`/products/${product.id}`}>
+          <h2>{product.name}</h2>{' '}
+        </Link>
+        <h3>Price: ${product.price}</h3>
+      </div>
     </div>
   )
 }

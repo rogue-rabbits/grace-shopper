@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getCartThunk, emptyCart} from '../store/cart'
+
 import {addItemsThunk, updateLastOrder} from '../store/orderHistory'
+import Button from '@material-ui/core/Button'
 
 const defaultState = {
   firstName: '',
@@ -150,7 +152,7 @@ class Checkout extends Component {
           onChange={this.handleChange}
           required
         /> */}
-        <button type="submit">Submit Order</button>
+        <Button type="submit">Submit Order</Button>
       </form>
     )
   }
