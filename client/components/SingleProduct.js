@@ -40,7 +40,7 @@ class SingleProduct extends React.Component {
           >
             {quantityArray.map((element, index) => {
               return (
-                <option key={index} value={index + 1}>
+                <option key={element} value={index + 1}>
                   {element + 1}
                 </option>
               )
