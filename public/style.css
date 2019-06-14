@@ -40,6 +40,13 @@ form div {
 .material-icons.md-dark.md-inactive {
   color: rgba(0, 0, 0, 0.26);
 }
-.material-icons.md-dark.md-inactive:hover {
-  color: rgba(0, 0, 0, 0.54);
+
+.cards-container {
+  justify-content: space-around;
+  flex-flow: row wrap;
+  align-items: stretch;
+}
+
+.primary-buttons {
+  padding: 14px 28px;
 }

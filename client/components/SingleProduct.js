@@ -42,6 +42,8 @@ class SingleProduct extends React.Component {
           })}
         </select>
         <Button
+          variant="contained"
+          className="primary-buttons"
           onClick={() => {
             existingItem.length
               ? this.props.updateCart(
