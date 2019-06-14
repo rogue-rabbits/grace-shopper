@@ -4,7 +4,7 @@ import {getProducts} from '../store/product'
 import {Product} from './index'
 import Grid from '@material-ui/core/Grid'
 import {makeStyles} from '@material-ui/core/styles'
-import Paper from '@material-ui/core/Paper'
+import Card from '@material-ui/core/Paper'
 
 class AllProducts extends React.Component {
   componentDidMount() {
@@ -14,15 +14,15 @@ class AllProducts extends React.Component {
   render() {
     return (
       <div>
-        <Grid container className="cards-container" spacing={2}>
+        <Grid container spacing={3} className="cards-container">
           {this.props.allProducts ? (
             this.props.allProducts.map(product => {
               return (
-                <div key={product.id}>
-                  <Grid item xs={12}>
-                    <Grid container justify="center">
+                <div key={product.id} className="card">
+                  <Grid item>
+                    <Card>
                       <Product product={product} />
-                    </Grid>
+                    </Card>
                   </Grid>
                 </div>
               )

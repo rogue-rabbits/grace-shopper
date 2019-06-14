@@ -43,8 +43,11 @@ form div {
 
 .cards-container {
   justify-content: space-around;
-  flex-flow: row wrap;
   align-items: stretch;
+  display: flex;
+  flex: 1 0 100%;
+  flex-wrap: wrap;
+  flex-direction: row;
 }
 
 .primary-buttons {
@@ -53,4 +56,15 @@ form div {
 
 .header {
   text-align: center;
+}
+
+.card {
+  flex: 0 0 25%;
+  margin: 5px;
+  align-items: center;
+  padding: 30px;
+}
+
+.center-contents {
+  padding: 10px;
 }
