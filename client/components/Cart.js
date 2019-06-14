@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import {CartItem} from './index'
 
 /**
  * COMPONENT
@@ -32,31 +33,7 @@ class Cart extends React.Component {
         <h2>CART</h2>
         {cartList.map(item => {
           total += item.product.price * item.quantity
-          // this.setState({quantity: item.quantity})
-          // console.log('this.state', this.state)
-          const itemTotal = item.product.price * item.quantity
-          return (
-            <div key={item.id}>
-              <h2>{item.product.name}</h2>
-              <h3>
-                Price: ${item.product.price} Quantity: {item.quantity}
-              </h3>
-              <h3>
-                <form onSubmit={this.handleSubmit}>
-                  <div>Quantity: </div>
-                  <input
-                    name="quantity"
-                    type="text"
-                    value={this.state.quantity}
-                    onChange={this.handleChange}
-                    required
-                  />
-                  <button type="submit">Update Quantity</button>
-                </form>
-              </h3>
-              <h3>Sub Total: ${itemTotal}</h3>
-            </div>
-          )
+          return <CartItem key={item.id} item={item} />
         })}
         <h2>Order Total: ${total.toFixed(2)}</h2>
 
