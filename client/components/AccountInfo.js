@@ -10,18 +10,17 @@ const AccountInfo = props => {
 
   return (
     <div>
+      <div className="order-title">Customer Information:</div>
+      <Card className="order-card">
+        <div>First Name: {currentUser.firstName}</div>
+        <div>Last Name: {currentUser.lastName}</div>
+        <div>
+          Address: {currentUser.address1}, {currentUser.city}{' '}
+          {currentUser.state}, {currentUser.zipCode}
+        </div>
+      </Card>
       <div>
-        <br />
-        First Name: {currentUser.firstName}
-        <br />
-        Last Name: {currentUser.lastName}
-        <br />
-        Address: {currentUser.address1}, {currentUser.city} {currentUser.state},{' '}
-        {currentUser.zipCode}
-      </div>
-      <div>
-        <br />
-        Order History:
+        <div className="order-title">Order History:</div>
         {orderNumbers.map(order => (
           <Card key={order} className="order-card">
             <div className="order-heading">Order Number: {order}</div>
@@ -29,7 +28,7 @@ const AccountInfo = props => {
               {groupByNo[order].map(element => {
                 return (
                   <div key={element.id} className="order-contents">
-                    <div className="order-line1">Name: {element.name}</div>
+                    <div className="order-line1">{element.name}</div>
                     <div className="order-line2">Price: {element.price}</div>
                     <div className="order-line2">
                       Quantity: {element.quantity}
