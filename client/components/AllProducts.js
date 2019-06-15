@@ -20,11 +20,9 @@ class AllProducts extends React.Component {
               return (
                 <div key={product.id} className="card">
                   <Grid item>
-                    <Link to={`/products/${product.id}`}>
-                      <Card>
-                        <Product product={product} />
-                      </Card>
-                    </Link>
+                    <Card>
+                      <Product product={product} />
+                    </Card>
                   </Grid>
                 </div>
               )
