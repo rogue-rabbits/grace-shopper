@@ -101,3 +101,27 @@ form div {
 .single-product-right {
   padding: 10px;
 }
+
+.order-contents {
+  display: flex;
+}
+
+.order-card {
+  padding: 10px;
+  margin: 15px;
+  width: 50%;
+}
+
+.order-heading {
+  padding-bottom: 5px;
+  font-size: 20px;
+  border-bottom: 1px solid grey;
+}
+
+.order-line1 {
+  width: 50%;
+}
+
+.order-line2 {
+  width: 25%;
+}
