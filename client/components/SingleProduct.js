@@ -1,10 +1,7 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import {getProduct} from '../store/product'
 import {addingToCart, updatingCart} from '../store/cart'
-import {Navbar, Product} from './index'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Paper'
 
@@ -15,7 +12,7 @@ class SingleProduct extends React.Component {
   }
 
   render() {
-    const product = this.props.product
+    const {product} = this.props
     const userId = this.props.user.id
     const cart = this.props.cart
     const reviewz = this.props.product.reviews

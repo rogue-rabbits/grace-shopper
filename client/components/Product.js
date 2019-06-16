@@ -22,7 +22,10 @@ const Product = props => {
           <h2>{product.name}</h2>{' '}
         </Link>
         <h3>Price: ${product.price}</h3>
-        <Button onClick={() => props.addToCart(props.user.id, product.id, 1)}>
+        <Button
+          variant="contained"
+          onClick={() => props.addToCart(props.user.id, product.id, 1)}
+        >
           ADD TO CART
         </Button>
       </div>
