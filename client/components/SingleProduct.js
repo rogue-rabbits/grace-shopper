@@ -2,6 +2,7 @@ import React from 'react'
 import {getProduct} from '../store/product'
 import {addingToCart, updatingCart} from '../store/cart'
 import {connect} from 'react-redux'
+import Rating from 'react-rating'
 import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Paper'
 
@@ -66,14 +67,33 @@ class SingleProduct extends React.Component {
           </div>
         </div>
         <div>
-          <div>REVIEWS: </div>
+          <h3 className="single-product-right">REVIEWS: </h3>
 
           {product.reviews && reviewz.length ? (
             reviewz.map(rev => {
               return (
-                <div key={rev.id} className="single-product-right">
-                  {rev.description}
-                </div>
+                <Card key={rev.id} className="single-product-rating">
+                  <div>
+                    <div>
+                      {rev.user.firstName} {rev.user.lastName}
+                    </div>
+                  </div>
+                  <div>
+                    <Rating
+                      initialRating={rev.rating}
+                      readonly
+                      emptySymbol={
+                        <img src="/tea-cup-empty.png" className="icon" />
+                      }
+                      fullSymbol={
+                        <img src="/tea-cup-full.png" className="icon" />
+                      }
+                    />
+                  </div>
+                  <div>
+                    <div>{rev.description}</div>
+                  </div>
+                </Card>
               )
             })
           ) : (
