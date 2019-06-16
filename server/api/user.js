@@ -1,4 +1,6 @@
 const router = require('express').Router()
+const {isAdmin, isSelf} = require('../permissions')
+const {User} = require('../db/models/user')
 
 module.exports = router
 
