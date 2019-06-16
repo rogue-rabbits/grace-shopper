@@ -21,9 +21,18 @@ nav a {
   color: white;
 }
 
+form {
+  padding: 30px;
+}
+
 form div {
-  margin: 1em;
+  /* margin: 1em; */
   display: inline-block;
+  margin-bottom: 30px;
+}
+
+.form-button {
+  align-self: center;
 }
 
 .checkoutForm {
@@ -100,4 +109,8 @@ form div {
 }
 .single-product-right {
   padding: 10px;
+}
+
+.checkout-container {
+  margin-top: 10px;
 }
