@@ -11,9 +11,16 @@ import {
   Navbar,
   Cart,
   Checkout,
-  OrderConfirm
+  OrderConfirm,
+  AccountInfo
 } from './components'
-import {me, getCartThunk, getLastOrderThunk} from './store'
+import {
+  me,
+  getCartThunk,
+  getLastOrderThunk,
+  getProducts,
+  getItemsThunk
+} from './store'
 
 /**
  * COMPONENT
@@ -43,6 +50,7 @@ class Routes extends Component {
             <Route path="/home" component={UserHome} />
             <Route path="/checkout" component={Checkout} />
             <Route path="/orderconfirm" component={OrderConfirm} />
+            <Route path="/accountinfo" component={AccountInfo} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
@@ -69,6 +77,8 @@ const mapDispatch = dispatch => {
       dispatch(me())
       dispatch(getCartThunk())
       dispatch(getLastOrderThunk())
+      dispatch(getProducts())
+      dispatch(getItemsThunk())
     }
   }
 }

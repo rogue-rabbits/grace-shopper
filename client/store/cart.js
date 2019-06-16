@@ -3,10 +3,9 @@ import axios from 'axios'
 // Action Type
 const GET_CART = 'GET_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
-
 const UPDATE_CART = 'UPDATE_CART'
-
 const EMPTY_CART = 'EMPTY_CART'
+const DELETE_ITEM = 'DELETE_ITEM'
 
 //Action Creators
 const getCart = items => ({type: GET_CART, items})
@@ -18,8 +17,8 @@ const updateCart = item => ({
   type: UPDATE_CART,
   item
 })
-
 export const emptyCart = () => ({type: EMPTY_CART})
+const deleteItem = productId => ({type: DELETE_ITEM, productId})
 
 //Thunk Creators
 export function addingToCart(userId, itemId, quantity) {
@@ -83,6 +82,17 @@ export function getCartThunk() {
   }
 }
 
+export function deletingItem(productId) {
+  return async dispatch => {
+    try {
+      await axios.delete(`/api/cart/${productId}`)
+      dispatch(deleteItem(productId))
+    } catch (error) {
+      console.log('Unable to delete cart item.')
+    }
+  }
+}
+
 //Reducer
 
 export default function(state = [], action) {
@@ -106,7 +116,9 @@ export default function(state = [], action) {
             ? action.item
             : el
       )
-
+    case DELETE_ITEM:
+      let newState = state.filter(item => item.productId !== action.productId)
+      return newState
     case EMPTY_CART:
       return []
     default:
