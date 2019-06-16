@@ -71,6 +71,7 @@ class Checkout extends Component {
 
   render() {
     let item
+    console.log('props', this.props)
 
     if (this.props.cartList[0]) {
       item = this.props.cartList[0].user
