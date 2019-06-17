@@ -29,7 +29,9 @@ const AccountInfo = props => {
                 return (
                   <div key={element.id} className="order-contents">
                     <div className="order-line1">{element.name}</div>
-                    <div className="order-line2">Price: {element.price}</div>
+                    <div className="order-line2">
+                      Price: {element.price / 100}
+                    </div>
                     <div className="order-line2">
                       Quantity: {element.quantity}
                     </div>

@@ -45,12 +45,12 @@ class CartItem extends React.Component {
 
   render() {
     const item = this.props.item
-    const itemTotal = item.product.price * item.quantity
+    const itemTotal = item.product.price * item.quantity / 100
     let quantityArray = Array.from(Array(10).keys())
     return (
       <div key={item.id}>
         <h2>{item.product.name}</h2>
-        <h3>Price: ${item.product.price}</h3>
+        <h3>Price: ${item.product.price / 100}</h3>
         <h3>
           <div>Quantity: {item.quantity}</div>
           <select

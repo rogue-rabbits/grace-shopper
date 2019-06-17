@@ -45,7 +45,7 @@ class SingleProduct extends React.Component {
             {' '}
             <h2>{product.name}</h2>
             <ProductRating rating={averageRating} />
-            <h3>Price: ${product.price}</h3>
+            <h3>Price: ${product.price / 100}</h3>
             <p> {product.description} </p>
             <select
               onChange={event => {

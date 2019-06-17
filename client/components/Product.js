@@ -17,11 +17,11 @@ const Product = props => {
           height="auto"
         />
       </Link>
-      <div>
+      <div className="card-contents">
         <Link to={`/products/${product.id}`}>
           <h2>{product.name}</h2>{' '}
         </Link>
-        <h3>Price: ${product.price}</h3>
+        <h3>Price: ${product.price / 100}</h3>
         <Button
           variant="contained"
           onClick={() => props.addToCart(props.user.id, product.id, 1)}
