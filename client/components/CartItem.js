@@ -46,29 +46,35 @@ class CartItem extends React.Component {
   render() {
     const item = this.props.item
     const itemTotal = item.product.price * item.quantity
+    let quantityArray = Array.from(Array(10).keys())
     return (
       <div key={item.id}>
         <h2>{item.product.name}</h2>
+        <h3>Price: ${item.product.price}</h3>
         <h3>
-          Price: ${item.product.price} Quantity: {item.quantity}
-        </h3>
-        <h3>
-          <form onSubmit={this.handleSubmit}>
-            <div>Quantity: </div>
-            <input
-              name="quantity"
-              type="text"
-              value={this.state.quantity}
-              onChange={this.handleChange}
-              required
-            />
-            <button type="submit">Update Quantity</button>
-          </form>
+          <div>Quantity: {item.quantity}</div>
+          <select
+            onChange={event => {
+              this.setState({quantity: parseInt(event.target.value)})
+            }}
+            defaultValue={this.state.quantity}
+          >
+            {quantityArray.map((element, index) => {
+              return (
+                <option key={element} value={index + 1}>
+                  {element + 1}
+                </option>
+              )
+            })}
+          </select>
+
+          <button type="submit" onClick={this.handleSubmit}>
+            Update Quantity
+          </button>
           <button type="button" onClick={this.handleDelete}>
             Remove
           </button>
         </h3>
-        <h3>Sub Total: ${itemTotal}</h3>
       </div>
     )
   }

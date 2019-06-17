@@ -73,6 +73,7 @@ class Checkout extends Component {
 
   render() {
     let item
+    console.log('props', this.props)
 
     if (this.props.cartList[0]) {
       item = this.props.cartList[0].user
@@ -83,7 +84,7 @@ class Checkout extends Component {
     return (
       <div className="checkout-container">
         <Grid container spacing={3} justify="center">
-          <Grid item xs={8}>
+          <Grid item sm={10} md={8}>
             <Paper>
               <form onSubmit={this.handleSubmit} className="checkoutForm">
                 <div>
