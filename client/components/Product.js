@@ -3,6 +3,11 @@ import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {addingToCart} from '../store'
 import Button from '@material-ui/core/Button'
+import {
+  ToastsContainer,
+  ToastsStore,
+  ToastsContainerPosition
+} from 'react-toasts'
 
 const Product = props => {
   const product = props.product
@@ -24,10 +29,18 @@ const Product = props => {
         <h3>Price: ${product.price / 100}</h3>
         <Button
           variant="contained"
-          onClick={() => props.addToCart(props.user.id, product.id, 1)}
+          onClick={() => {
+            props.addToCart(props.user.id, product.id, 1)
+            ToastsStore.success(`${product.name} is added to cart!`)
+          }}
         >
           ADD TO CART
         </Button>
+        <ToastsContainer
+          store={ToastsStore}
+          position={ToastsContainerPosition.TOP_RIGHT}
+          lightBackground
+        />
       </div>
     </div>
   )

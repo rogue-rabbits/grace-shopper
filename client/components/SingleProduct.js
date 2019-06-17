@@ -7,6 +7,11 @@ import Card from '@material-ui/core/Paper'
 import ProductRating from './ProductRating'
 import RatingForm from './RatingForm'
 import meanBy from 'lodash/meanBy'
+import {
+  ToastsContainer,
+  ToastsStore,
+  ToastsContainerPosition
+} from 'react-toasts'
 
 class SingleProduct extends React.Component {
   constructor(props) {
@@ -72,10 +77,16 @@ class SingleProduct extends React.Component {
                       dataQuantity
                     )
                   : this.props.addToCart(userId, product.id, quantity)
+                ToastsStore.success(`${product.name} is added to cart!`)
               }}
             >
               Add to Cart
             </Button>
+            <ToastsContainer
+              store={ToastsStore}
+              position={ToastsContainerPosition.TOP_RIGHT}
+              lightBackground
+            />
           </div>
         </div>
         <div>
