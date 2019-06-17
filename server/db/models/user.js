@@ -53,6 +53,10 @@ const User = db.define('user', {
   },
   googleId: {
     type: Sequelize.STRING
+  },
+  isAdmin: {
+    type: Sequelize.STRING,
+    defaultvalue: false
   }
 })
 
