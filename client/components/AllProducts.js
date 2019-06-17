@@ -37,6 +37,8 @@ class AllProducts extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({allProducts: state.product.allProducts})
+const mapStateToProps = state => ({
+  allProducts: state.product.allProducts
+})
 
 export default connect(mapStateToProps)(AllProducts)
