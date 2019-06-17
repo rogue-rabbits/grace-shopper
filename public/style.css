@@ -139,6 +139,15 @@ form div {
   font-size: 24px;
 }
 
+.icon {
+  height: 30px;
+}
+
+.single-product-rating {
+  margin: 10px;
+  padding: 5px;
+}
+
 .checkout {
   display: flex;
   flex-direction: column;
