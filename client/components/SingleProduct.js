@@ -2,22 +2,34 @@ import React from 'react'
 import {getProduct} from '../store/product'
 import {addingToCart, updatingCart} from '../store/cart'
 import {connect} from 'react-redux'
-import Rating from 'react-rating'
 import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Paper'
+import ProductRating from './ProductRating'
+import RatingForm from './RatingForm'
+import meanBy from 'lodash/meanBy'
 
 class SingleProduct extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {showForm: false}
+  }
+
   componentDidMount() {
     const id = this.props.match.params.id
     this.props.getProduct(id)
+  }
+
+  toggleForm = () => {
+    const {showForm} = this.state
+    this.setState({showForm: !showForm})
   }
 
   render() {
     const {product} = this.props
     const userId = this.props.user.id
     const cart = this.props.cart
-    const reviewz = this.props.product.reviews
-    console.log('reviews', reviewz)
+    const reviews = this.props.product.reviews
+    const averageRating = meanBy(reviews, 'rating')
 
     let quantity = 1
     let quantityArray = Array.from(Array(10).keys())
@@ -33,6 +45,7 @@ class SingleProduct extends React.Component {
           <div className="single-product-right">
             {' '}
             <h2>{product.name}</h2>
+            <ProductRating rating={averageRating} />
             <h3>Price: ${product.price}</h3>
             <p> {product.description} </p>
             <select
@@ -68,9 +81,18 @@ class SingleProduct extends React.Component {
         </div>
         <div>
           <h3 className="single-product-right">REVIEWS: </h3>
-
-          {product.reviews && reviewz.length ? (
-            reviewz.map(rev => {
+          <Button
+            variant="contained"
+            className="primary-buttons"
+            onClick={this.toggleForm}
+          >
+            Write A Review
+          </Button>
+          {this.state.showForm && (
+            <RatingForm closeForm={this.toggleForm} id={product.id} />
+          )}
+          {product.reviews && reviews.length ? (
+            reviews.map(rev => {
               return (
                 <Card key={rev.id} className="single-product-rating">
                   <div>
@@ -79,16 +101,7 @@ class SingleProduct extends React.Component {
                     </div>
                   </div>
                   <div>
-                    <Rating
-                      initialRating={rev.rating}
-                      readonly
-                      emptySymbol={
-                        <img src="/tea-cup-empty.png" className="icon" />
-                      }
-                      fullSymbol={
-                        <img src="/tea-cup-full.png" className="icon" />
-                      }
-                    />
+                    <ProductRating rating={rev.rating} />
                   </div>
                   <div>
                     <div>{rev.description}</div>

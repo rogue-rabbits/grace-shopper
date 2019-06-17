@@ -21,3 +21,25 @@ router.get('/:id', async (req, res, next) => {
     next(err)
   }
 })
+
+router.post('/:id/review', async (req, res, next) => {
+  try {
+    const creatReview = await Review.create({
+      userId: req.user.id,
+      productId: req.params.id,
+      description: req.body.message,
+      rating: req.body.rating
+    })
+    const objectToSend = {
+      id: creatReview.id,
+      user: req.user,
+      userId: req.user.id,
+      productId: req.params.id,
+      description: req.body.message,
+      rating: req.body.rating
+    }
+    res.json(objectToSend)
+  } catch (err) {
+    next(err)
+  }
+})
