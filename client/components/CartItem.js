@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {updatingCart, deletingItem} from '../store/cart'
 import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Paper'
+import Icon from '@material-ui/core/Icon'
 
 /**
  * COMPONENT
@@ -59,46 +60,54 @@ class CartItem extends React.Component {
           <h2>{item.product.name}</h2>
         </Link>
         <Grid container direction="column" alignItems="flex-end">
-          <Link to={`/products/${product.id}`}>
-            <Card>
-              <img src={product.imageUrl} width="200px" height="auto" />
-            </Card>
-          </Link>
-          <Grid container justify="space-between">
+          <Grid container justify="center">
             <Grid item>
-              <h3>Price: ${item.product.price / 100}</h3>
+              <Link to={`/products/${product.id}`}>
+                <Card>
+                  <img src={product.imageUrl} width="200px" height="auto" />
+                </Card>
+              </Link>
             </Grid>
             <Grid item>
-              <h3>Quantity: {item.quantity}</h3>
+              <button type="button" onClick={this.handleDelete}>
+                Remove
+                {/* <i className="material-icons md-dark">trash</i> */}
+                {/* <i className="fas fa-trash-alt" /> */}
+              </button>
             </Grid>
-          </Grid>
-          <Grid item>
-            <Grid container alignItems="center">
+            <Grid item>
+              <Grid container justify="space-between">
+                <Grid item>
+                  <h3>Price: ${item.product.price / 100}</h3>
+                </Grid>
+                <Grid item>
+                  <h3>Quantity: {item.quantity}</h3>
+                </Grid>
+              </Grid>
               <Grid item>
-                <select
-                  onChange={event => {
-                    this.setState({quantity: parseInt(event.target.value)})
-                  }}
-                  defaultValue={this.state.quantity}
-                >
-                  {quantityArray.map((element, index) => {
-                    return (
-                      <option key={element} value={index + 1}>
-                        {element + 1}
-                      </option>
-                    )
-                  })}
-                </select>
-                <button type="submit" onClick={this.handleSubmit}>
-                  Update Quantity
-                </button>
+                <Grid container alignItems="center">
+                  <Grid item>
+                    <select
+                      onChange={event => {
+                        this.setState({quantity: parseInt(event.target.value)})
+                      }}
+                      defaultValue={this.state.quantity}
+                    >
+                      {quantityArray.map((element, index) => {
+                        return (
+                          <option key={element} value={index + 1}>
+                            {element + 1}
+                          </option>
+                        )
+                      })}
+                    </select>
+                    <button type="submit" onClick={this.handleSubmit}>
+                      Update Quantity
+                    </button>
+                  </Grid>
+                </Grid>
               </Grid>
             </Grid>
-          </Grid>
-          <Grid item>
-            <button type="button" onClick={this.handleDelete}>
-              Remove
-            </button>
           </Grid>
         </Grid>
       </div>
