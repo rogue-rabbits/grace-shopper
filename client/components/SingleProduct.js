@@ -25,9 +25,8 @@ class SingleProduct extends React.Component {
   }
 
   render() {
-    const {product} = this.props
+    const {product, cart} = this.props
     const userId = this.props.user.id
-    const cart = this.props.cart
     const reviews = this.props.product.reviews
     const averageRating = meanBy(reviews, 'rating')
 
@@ -89,7 +88,13 @@ class SingleProduct extends React.Component {
             Write A Review
           </Button>
           {this.state.showForm && (
-            <RatingForm closeForm={this.toggleForm} id={product.id} />
+            <>
+              {userId ? (
+                <RatingForm closeForm={this.toggleForm} id={product.id} />
+              ) : (
+                <div>Please sign in to add review. </div>
+              )}
+            </>
           )}
           {product.reviews && reviews.length ? (
             reviews.map(rev => {
