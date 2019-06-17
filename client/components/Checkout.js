@@ -7,6 +7,9 @@ import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import Paper from '@material-ui/core/Paper'
 
+import {Elements, StripeProvider} from 'react-stripe-elements'
+import CheckoutForm from './CheckoutForm'
+
 const defaultState = {
   firstName: '',
   lastName: '',
@@ -15,8 +18,8 @@ const defaultState = {
   city: '',
   state: '',
   zipCode: '',
-  email: ''
-  // creditCard: '232'
+  email: '',
+  orderTotal: 0
 }
 
 class Checkout extends Component {
@@ -29,7 +32,12 @@ class Checkout extends Component {
 
   componentDidMount() {
     const user = this.props.cartList[0].user
-    console.log('props ', this.props)
+    let orderTotal = 0
+    const items = this.props.cartList
+    items.forEach(item => {
+      const price = item.product.price * item.quantity
+      orderTotal += price
+    })
     this.setState({
       firstName: user.firstName,
       lastName: user.lastName,
@@ -38,7 +46,8 @@ class Checkout extends Component {
       city: user.city,
       state: user.state,
       zipCode: user.zipCode,
-      email: user.email
+      email: user.email,
+      orderTotal: orderTotal
     })
     this.props.getCart()
   }
@@ -50,21 +59,15 @@ class Checkout extends Component {
   }
 
   handleSubmit(evt) {
-    evt.preventDefault()
-    let orderTotal = 0
-    const items = this.props.cartList
-    items.forEach(item => {
-      const price = item.product.price * item.quantity
-      orderTotal += price
-    })
-    console.log('this.props', this.props)
+    // evt.preventDefault()
 
+    const items = this.props.cartList
     const orderNumber = this.props.lastOrderNumber + 1
     this.props.updateLastOrder(orderNumber)
     items.map(item => {
       item.product.quantity = item.quantity
       item.product.orderNumber = orderNumber
-      item.product.total = orderTotal
+      item.product.total = this.state.orderTotal
       this.props.addOrder(item.product)
     })
     this.props.emptyCart()
@@ -73,7 +76,6 @@ class Checkout extends Component {
 
   render() {
     let item
-    console.log('props', this.props)
 
     if (this.props.cartList[0]) {
       item = this.props.cartList[0].user
@@ -188,6 +190,14 @@ class Checkout extends Component {
                   Submit Order
                 </Button>
               </form>
+              <StripeProvider apiKey="pk_test_x3CRlnur814woLKzHiOX9Feq00wXadZoZZ">
+                <Elements>
+                  <CheckoutForm
+                    customer={this.state}
+                    handleSubmit={this.handleSubmit}
+                  />
+                </Elements>
+              </StripeProvider>
             </Paper>
           </Grid>
         </Grid>
