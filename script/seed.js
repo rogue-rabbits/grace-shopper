@@ -44,7 +44,7 @@ async function seed() {
     Product.create({
       name: 'Royal Wedding Tea',
       type: 'White Tea',
-      price: 28.0,
+      price: 2800,
       description:
         'White tea is made from the young tea bud. It is plucked just before the leaf opens on the stem and is air-dried to lock in its color and flavor. The chlorophyll is not mature in this bud and that gives its “white” appearance. We add flavors to make delicate and delectable teas. Look for gently sweet notes ranging from honeysuckle to light maple sap, citrus fruit flavors like orange and lemon, and wisps of floral aromas, evoking jasmine and rose. The delicacy of white tea leaves allows wonderfully subtle flavors to flourish in your freshly brewed cup!',
       imageUrl:
@@ -53,7 +53,7 @@ async function seed() {
     Product.create({
       name: 'White Peach',
       type: 'White Tea',
-      price: 19.0,
+      price: 1900,
       description:
         "Subtle and refined, our White Peach tea delivers a delicate, sweet palate full of scrumptious flavors. We begin with subtle hand-picked Chinese Mutan White tea, full of light vegetal flavors, and augment its smooth and welcoming palate with sweet notes of peach for a body that's strong without being brash. Finally, an even-handed touch of natural vanilla swirls through, bringing this reliably enjoyable brew to a close",
       imageUrl:
@@ -62,7 +62,7 @@ async function seed() {
     Product.create({
       name: 'Venetian Tiramisu',
       type: 'White Tea',
-      price: 19.99,
+      price: 1999,
       description:
         'Indulge your senses in the flavors of Venetian Tiramisu tea. Evocative and romantic, each cup begins with a blend of delicately floral Mutan white tea and toasty Japanese Hojicha. Swirling flavors of cocoa and vanilla layer throughout the tea, accented with cocoa nibs and just a hint of brandy flavor. The result is a shimmering, deliciously complex infusion that summons up visions of Venice in every sip.',
       imageUrl:
@@ -71,7 +71,7 @@ async function seed() {
     Product.create({
       name: 'Matcha',
       type: 'Green Tea',
-      price: 36.0,
+      price: 3600,
       description:
         "Powdered green teas have been consumed in China and Japan for centuries. However it is only in the last few decades that Westerners have acquired a taste for this ancient tea. We enjoy the bracing vegetal flavors, as well as the unusual process for preparing the tea. We offer a range of thin, thick and extra thick Matcha grades depending upon your taste and purpose, as well as accessories you'll need for preparation and serving. Be sure to check out our tea collections for more delicious brew options.",
       imageUrl:
@@ -80,7 +80,7 @@ async function seed() {
     Product.create({
       name: 'English Breakfast',
       type: 'Black Tea',
-      price: 50.0,
+      price: 5000,
       description:
         "There are many versions of English Breakfast tea. Ours has an ancient pedigree. Researchers have traced its heritage back to the black tea the English drank regularly in the 1800's. It is, simply, China Black 100% Keemun. A simple way to start your hectic day! ",
       imageUrl:
@@ -89,7 +89,7 @@ async function seed() {
     Product.create({
       name: 'Darjeeling',
       type: 'Black Tea',
-      price: 21.0,
+      price: 2100,
       description:
         'High in the mountains, deep in the mists that surround the Himalayas is Darjeeling, "Queen of Teas." Our Darjeeling tea is a blend of First Flush and Autumnal teas from the best gardens. This mixture yields a light color in the cup  a fragrant nose.',
       imageUrl:
@@ -128,17 +128,17 @@ async function seed() {
   const orderHistory = await Promise.all([
     OrderHistory.create({
       name: 'White Peach',
-      price: 19.0,
+      price: 1900,
       quantity: 2,
-      total: 38.0,
+      total: 3800,
       orderNumber: 10001,
       userId: 1
     }),
     OrderHistory.create({
       name: 'Black Tea',
-      price: 10.0,
+      price: 1000,
       quantity: 2,
-      total: 20.0,
+      total: 2000,
       orderNumber: 10002,
       userId: 2
     })

@@ -28,7 +28,7 @@ class SingleProduct extends React.Component {
         <div className="single-product-right">
           {' '}
           <h2>{product.name}</h2>
-          <h3>Price: ${product.price}</h3>
+          <h3>Price: ${product.price / 100}</h3>
           <p> {product.description} </p>
           <select
             onChange={event => {
