@@ -1,7 +1,13 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Product, Cart, OrderHistory} = require('../server/db/models')
+const {
+  User,
+  Product,
+  Cart,
+  OrderHistory,
+  Review
+} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -141,6 +147,50 @@ async function seed() {
       total: 2000,
       orderNumber: 10002,
       userId: 2
+    })
+  ])
+
+  const review = await Promise.all([
+    Review.create({
+      userId: 1,
+      productId: 1,
+      rating: 4,
+      description:
+        'A wonderful alternative to my traditional teas. Enjoyed after a meal, almost like a dessert. Has a nice hint of vanilla'
+    }),
+    Review.create({
+      userId: 2,
+      productId: 1,
+      rating: 5,
+      description: 'This is one of my favorite teas, light but flavorful.'
+    }),
+    Review.create({
+      userId: 3,
+      productId: 1,
+      rating: 4,
+      description:
+        "I bought Royal Wedding tea for the first time after being gifted a rather old sachet from a friend and loving it. I got my mom hooked on it as well, and it quickly became her favorite tea. I was going to order the one pound bag (seriously), but was horrified to discover the tea completely out of stock. After waiting a month or so, I checked back to discover that at least the 2oz tins were back just in time for my mom's birthday. The delicate chocolate/vanilla flavor (without any chocolate in the ingredients - still a mystery to me) is positively enchanting, and I very much hope Harney and Sons does not discontinue it any time soon."
+    }),
+    Review.create({
+      userId: 1,
+      productId: 2,
+      rating: 4,
+      description:
+        'It is a very flavorful and good tasting tea. It has floral notes. It tastes great with honey!'
+    }),
+    Review.create({
+      userId: 2,
+      productId: 2,
+      rating: 4,
+      description:
+        'A delicate blend white tea with rose petals, almond, coconut, and vanilla ~ a lovely cup after dinner.'
+    }),
+    Review.create({
+      userId: 1,
+      productId: 4,
+      rating: 5,
+      description:
+        'I first had this tea in San Diego at an English High Tea. So glad to be able to purchase and continue to enjoy. Harney Teas are the best!'
     })
   ])
 
