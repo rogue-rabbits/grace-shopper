@@ -8,17 +8,24 @@ class AllProducts extends React.Component {
   render() {
     return (
       <div>
-        <Grid container spacing={3} className="cards-container">
+        <Grid
+          container
+          direction="row"
+          justify="space-around"
+          alignItems="center"
+          spacing={3}
+          className="cards-container"
+        >
           {this.props.allProducts ? (
             this.props.allProducts.map(product => {
               return (
-                <div key={product.id} className="card">
-                  <Grid item>
-                    <Card>
-                      <Product product={product} />
-                    </Card>
-                  </Grid>
-                </div>
+                // <div key={product.id} className="card">
+                <Grid item sm={4} key={product.id}>
+                  <Card>
+                    <Product product={product} />
+                  </Card>
+                </Grid>
+                // </div>
               )
             })
           ) : (
