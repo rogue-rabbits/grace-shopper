@@ -22,7 +22,8 @@ async function seed() {
       state: 'NY',
       zipCode: '12345',
       email: 'cody@email.com',
-      password: '123'
+      password: '123',
+      isAdmin: true
     }),
     User.create({
       firstName: 'Murphy',
@@ -32,7 +33,8 @@ async function seed() {
       state: 'NY',
       zipCode: '56789',
       email: 'murphy@email.com',
-      password: '123'
+      password: '123',
+      isAdmin: false
     }),
     User.create({
       firstName: 'Kelly',
@@ -42,7 +44,8 @@ async function seed() {
       state: 'NY',
       zipCode: '10001',
       email: 'kelly@email.com',
-      password: '123'
+      password: '123',
+      isAdmin: false
     })
   ])
 
