@@ -1,16 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {getProducts} from '../store/product'
 import {Product} from './index'
 import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Paper'
 
 class AllProducts extends React.Component {
-  componentDidMount() {
-    this.props.getProducts()
-  }
-
   render() {
     return (
       <div>
@@ -20,11 +14,9 @@ class AllProducts extends React.Component {
               return (
                 <div key={product.id} className="card">
                   <Grid item>
-                    <Link to={`/products/${product.id}`}>
-                      <Card>
-                        <Product product={product} />
-                      </Card>
-                    </Link>
+                    <Card>
+                      <Product product={product} />
+                    </Card>
                   </Grid>
                 </div>
               )
@@ -39,8 +31,5 @@ class AllProducts extends React.Component {
 }
 
 const mapStateToProps = state => ({allProducts: state.product.allProducts})
-const mapDispatchToProps = dispatch => ({
-  getProducts: () => dispatch(getProducts())
-})
 
-export default connect(mapStateToProps, mapDispatchToProps)(AllProducts)
+export default connect(mapStateToProps)(AllProducts)
