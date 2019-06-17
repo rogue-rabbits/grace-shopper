@@ -88,7 +88,7 @@ class Checkout extends Component {
         <Grid container spacing={3} justify="center">
           <Grid item sm={10} md={8}>
             <Paper>
-              <form onSubmit={this.handleSubmit} className="checkoutForm">
+              <form className="checkoutForm">
                 <div>
                   <Grid container spacing={3}>
                     <Grid item xs={12} sm={6}>
@@ -186,9 +186,9 @@ class Checkout extends Component {
                     </Grid>
                   </Grid>
                 </div>
-                <Button type="submit" className="form-button">
+                {/* <Button type="submit" className="form-button">
                   Submit Order
-                </Button>
+                </Button> */}
               </form>
               <StripeProvider apiKey="pk_test_x3CRlnur814woLKzHiOX9Feq00wXadZoZZ">
                 <Elements>
