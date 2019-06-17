@@ -2,6 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {CartItem} from './index'
+import Grid from '@material-ui/core/Grid'
+import Card from '@material-ui/core/Paper'
 
 /**
  * COMPONENT
@@ -29,21 +31,37 @@ class Cart extends React.Component {
 
     let total = 0
     return (
-      <div>
-        <h2>CART</h2>
-        {cartList.map(item => {
-          total += item.product.price * item.quantity
-          return <CartItem key={item.id} item={item} />
-        })}
-        <h2>Order Total: ${total / 100}</h2>
+      <div className="cart-container">
+        <Grid
+          container
+          direction="column"
+          alignItems="center"
+          justify="center"
+          xs={8}
+        >
+          <Card>
+            <h2>CART</h2>
+            <Grid container direction="column" alignItems="center">
+              {cartList.map(item => {
+                total += item.product.price * item.quantity
+                return (
+                  <Grid item sm={8} key={item.id}>
+                    <CartItem key={item.id} item={item} />
+                  </Grid>
+                )
+              })}
+            </Grid>
+            <h2>Order Total: ${total / 100}</h2>
 
-        <button>
-          {isLoggedIn ? (
-            <Link to="/checkout"> Checkout and Pay </Link>
-          ) : (
-            <Link to="/login">Login and Checkout</Link>
-          )}
-        </button>
+            <button type="button">
+              {isLoggedIn ? (
+                <Link to="/checkout"> Checkout and Pay </Link>
+              ) : (
+                <Link to="/login">Login and Checkout</Link>
+              )}
+            </button>
+          </Card>
+        </Grid>
       </div>
     )
   }

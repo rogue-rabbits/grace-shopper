@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {updatingCart, deletingItem} from '../store/cart'
 
@@ -45,6 +46,7 @@ class CartItem extends React.Component {
 
   render() {
     const item = this.props.item
+    console.log('PROPS', this.props)
     const itemTotal = item.product.price * item.quantity / 100
     let quantityArray = Array.from(Array(10).keys())
     return (

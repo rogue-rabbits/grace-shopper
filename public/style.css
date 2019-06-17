@@ -225,3 +225,8 @@ input:focus,
 .StripeElement.PaymentRequestButton {
   padding: 0;
 }
+
+.cart-container {
+  display: flex;
+  justify-content: center;
+}
