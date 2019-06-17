@@ -17,7 +17,8 @@ describe('User model', () => {
         cody = await User.create({
           email: 'cody@puppybook.com',
           password: 'bones',
-          address1: '789 Web Dr'
+          address1: '789 Web Dr',
+          isAdmin: true
         })
       })
 
@@ -35,6 +36,9 @@ describe('User model', () => {
 
       it('returns true if the email is correct', () => {
         expect(cody.correctPassword('cody@puppybook.com')).to.be.equal(false)
+      })
+      it('returns true if the admin status is correct', () => {
+        expect(cody.isAdmin).to.be.equal('true')
       })
     }) // end describe('correctPassword')
   }) // end describe('instanceMethods')
