@@ -234,3 +234,9 @@ input:focus,
 .StripeElement.PaymentRequestButton {
   padding: 0;
 }
+
+.nav-cart-qty {
+  position: absolute;
+  right: 28px;
+  color: white;
+}
