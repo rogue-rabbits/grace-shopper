@@ -235,6 +235,27 @@ input:focus,
   padding: 0;
 }
 
+.cart-paper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 30px;
+}
+
+.cart-container h2 {
+  text-align: center;
+}
+
+.order-total {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.order-total h2 {
+  text-align: right;
+}
 .nav-cart-qty {
   position: absolute;
   right: 28px;
