@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {REMOVE_USER} from './user'
 
 // Action Type
 const GET_ORDER = 'GET_ORDER'
@@ -55,6 +56,8 @@ export default function(state = initialState, action) {
       return {...state, allOrders: [...state.allOrders, action.order]}
     case UPDATE_LAST_ORDER:
       return {...state, lastOrderNum: action.order}
+    case REMOVE_USER:
+      return []
     default:
       return state
   }
