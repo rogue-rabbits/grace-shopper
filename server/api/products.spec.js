@@ -14,7 +14,7 @@ describe('Product routes', () => {
   describe('/api/products/', () => {
     const nameTest = 'White Peach'
     const typeTest = 'White Tea'
-    const priceTest = '28.0'
+    const priceTest = 2800
 
     beforeEach(() => {
       return Product.create({

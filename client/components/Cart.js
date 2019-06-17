@@ -35,7 +35,7 @@ class Cart extends React.Component {
           total += item.product.price * item.quantity
           return <CartItem key={item.id} item={item} />
         })}
-        <h2>Order Total: ${total.toFixed(2)}</h2>
+        <h2>Order Total: ${total / 100}</h2>
 
         <button>
           {isLoggedIn ? (
