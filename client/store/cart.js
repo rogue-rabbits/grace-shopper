@@ -6,6 +6,7 @@ const ADD_TO_CART = 'ADD_TO_CART'
 const UPDATE_CART = 'UPDATE_CART'
 const EMPTY_CART = 'EMPTY_CART'
 const DELETE_ITEM = 'DELETE_ITEM'
+const ADD_TO_GUEST_CART = 'ADD_TO_GUEST_CART'
 
 //Action Creators
 const getCart = items => ({type: GET_CART, items})
@@ -17,10 +18,44 @@ const updateCart = item => ({
   type: UPDATE_CART,
   item
 })
+
+const addToGuestCart = items => ({
+  type: ADD_TO_GUEST_CART,
+  items
+})
+
 export const emptyCart = () => ({type: EMPTY_CART})
 const deleteItem = productId => ({type: DELETE_ITEM, productId})
 
 //Thunk Creators
+export function addingToGuestCart(productId, quantity) {
+  return async dispatch => {
+    try {
+      let {data} = await axios.post(`/api/guestcart/add-to-cart/`, {
+        id: productId,
+        quantity: quantity
+      })
+      console.log('data ', data)
+      dispatch(addToGuestCart(data.products))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+export function updatingQuantityOfGuestCart(productId, quantity) {
+  return async dispatch => {
+    try {
+      let {data} = await axios.post(`/api/guestcart/update-quantity/`, {
+        id: productId,
+        quantity: quantity
+      })
+      console.log('data ', data)
+      dispatch(addToGuestCart(data.products))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
 export function addingToCart(userId, itemId, quantity) {
   return async dispatch => {
     try {
@@ -121,6 +156,10 @@ export default function(state = [], action) {
       return newState
     case EMPTY_CART:
       return []
+    case ADD_TO_GUEST_CART:
+      console.log('add to guest cart', ...Object.values(action.items))
+
+      return [...Object.values(action.items)]
     default:
       return state
   }

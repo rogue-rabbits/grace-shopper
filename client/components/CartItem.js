@@ -1,6 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {updatingCart, deletingItem} from '../store/cart'
+import {
+  updatingCart,
+  deletingItem,
+  updatingQuantityOfGuestCart
+} from '../store/cart'
 
 /**
  * COMPONENT
@@ -33,9 +37,17 @@ class CartItem extends React.Component {
 
   handleSubmit(evt) {
     evt.preventDefault()
-    const item = this.state.item
-    const quantity = this.state.quantity
-    this.props.updateCart(item.userId, item.product.id, 0, quantity)
+    if (this.props.user.id) {
+      const item = this.state.item
+      const quantity = this.state.quantity
+      this.props.updateCart(item.userId, item.product.id, 0, quantity)
+    } else {
+      console.log('quantity', this.state.quantity)
+      this.props.updateGuestCart(
+        this.state.item.product.id,
+        this.state.quantity
+      )
+    }
   }
 
   handleDelete() {
@@ -80,13 +92,19 @@ class CartItem extends React.Component {
   }
 }
 
+const mapStateToProps = state => ({
+  user: state.user
+})
+
 const mapDispatchToProps = dispatch => ({
   updateCart: (userId, itemId, quantity, newQuantity) => {
     dispatch(updatingCart(userId, itemId, quantity, newQuantity))
   },
   deleteItem: productId => {
     dispatch(deletingItem(productId))
-  }
+  },
+  updateGuestCart: (productId, quantity) =>
+    dispatch(updatingQuantityOfGuestCart(productId, quantity))
 })
 
-export default connect(null, mapDispatchToProps)(CartItem)
+export default connect(mapStateToProps, mapDispatchToProps)(CartItem)

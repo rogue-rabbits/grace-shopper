@@ -4,13 +4,17 @@ module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    const cart = await Cart.findAll({
-      where: {
-        userId: req.user.id
-      },
-      include: [{model: Product}, {model: User}]
-    })
-    res.json(cart)
+    if (req.user) {
+      const cart = await Cart.findAll({
+        where: {
+          userId: req.user.id
+        },
+        include: [{model: Product}, {model: User}]
+      })
+      res.json(cart)
+    } else {
+      res.json([])
+    }
   } catch (err) {
     next(err)
   }
