@@ -5,26 +5,36 @@ module.exports = router
 class Cart {
   constructor(oldCart) {
     this.products = oldCart ? oldCart.products : {}
-    // this.totalQty = oldCart ? oldCart.totalQty : 0
-    // this.totalPrice = oldCart ? oldCart.totalPrice : 0
   }
 
   add(product, id, quantity) {
+    //if this product isnt already in the cart, create it
     if (!this.products[id]) {
-      // this.products[id].quantity++
       this.products[id] = {productId: id, quantity, product}
     } else {
-      console.log('exists: ', this.products[id])
+      //if product is already in cart, update its quantity
       this.products[id].quantity = this.products[id].quantity += quantity
     }
-
-    // this.products[id].price =
-    //   this.products[id].price * this.products[id].quantity
-    // this.totalQty++
-    // this.totalPrice += Number(product.price)
   }
   updateQuantity(product, id, quantity) {
+    console.log('ID ', id)
+    console.log('UPDATE PRODUCTS: ', this.products)
     this.products[id].quantity = quantity
+  }
+  delete(id) {
+    let products = {}
+    console.log('ID ', id)
+    console.log('DELETE PRODUCTS: ', this.products)
+
+    for (let productId in this.products) {
+      if (productId === id) {
+        continue
+      } else {
+        products[productId] = this.products[productId]
+      }
+    }
+    console.log('PRODUCTS: ', products)
+    this.products = products
   }
 }
 
@@ -63,6 +73,18 @@ router.post('/update-quantity/', async (req, res, next) => {
     let cart = new Cart(req.session.cart)
     const product = await Product.findByPk(id)
     cart.updateQuantity(product, id, quantity)
+    req.session.cart = cart
+    res.status(201).json(req.session.cart)
+  } catch (error) {
+    console.log(error)
+  }
+})
+
+router.get('/deleteItem/:id', (req, res, next) => {
+  try {
+    const id = req.params.id
+    let cart = new Cart(req.session.cart)
+    cart.delete(id)
     req.session.cart = cart
     res.status(201).json(req.session.cart)
   } catch (error) {

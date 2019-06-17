@@ -35,7 +35,6 @@ export function addingToGuestCart(productId, quantity) {
         id: productId,
         quantity: quantity
       })
-      console.log('data ', data)
       dispatch(addToGuestCart(data.products))
     } catch (err) {
       console.log(err)
@@ -53,6 +52,16 @@ export function updatingQuantityOfGuestCart(productId, quantity) {
       dispatch(addToGuestCart(data.products))
     } catch (err) {
       console.log(err)
+    }
+  }
+}
+export function deletingItemOfGuestCart(productId) {
+  return async dispatch => {
+    try {
+      let {data} = await axios.get(`/api/guestcart/deleteItem/${productId}`)
+      dispatch(addToGuestCart(data.products))
+    } catch (error) {
+      console.log(error)
     }
   }
 }
@@ -157,8 +166,6 @@ export default function(state = [], action) {
     case EMPTY_CART:
       return []
     case ADD_TO_GUEST_CART:
-      console.log('add to guest cart', ...Object.values(action.items))
-
       return [...Object.values(action.items)]
     default:
       return state

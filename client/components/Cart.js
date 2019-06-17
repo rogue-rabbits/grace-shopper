@@ -34,7 +34,7 @@ class Cart extends React.Component {
         <h2>CART</h2>
         {cartList.map(item => {
           total += item.product.price * item.quantity
-          return <CartItem key={item.id} item={item} />
+          return <CartItem key={item.productId} item={item} />
         })}
         <h2>Order Total: ${total / 100}</h2>
 

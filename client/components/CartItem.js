@@ -3,7 +3,8 @@ import {connect} from 'react-redux'
 import {
   updatingCart,
   deletingItem,
-  updatingQuantityOfGuestCart
+  updatingQuantityOfGuestCart,
+  deletingItemOfGuestCart
 } from '../store/cart'
 
 /**
@@ -42,17 +43,17 @@ class CartItem extends React.Component {
       const quantity = this.state.quantity
       this.props.updateCart(item.userId, item.product.id, 0, quantity)
     } else {
-      console.log('quantity', this.state.quantity)
-      this.props.updateGuestCart(
-        this.state.item.product.id,
-        this.state.quantity
-      )
+      this.props.updateGuestCart(this.state.item.productId, this.state.quantity)
     }
   }
 
   handleDelete() {
     const productId = this.state.item.productId
-    this.props.deleteItem(productId)
+    if (this.props.user.id) {
+      this.props.deleteItem(productId)
+    } else {
+      this.props.deleteItemGuestCart(productId)
+    }
   }
 
   render() {
@@ -60,7 +61,7 @@ class CartItem extends React.Component {
     const itemTotal = item.product.price * item.quantity / 100
     let quantityArray = Array.from(Array(10).keys())
     return (
-      <div key={item.id}>
+      <div key={item.productId}>
         <h2>{item.product.name}</h2>
         <h3>Price: ${item.product.price / 100}</h3>
         <h3>
@@ -104,7 +105,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(deletingItem(productId))
   },
   updateGuestCart: (productId, quantity) =>
-    dispatch(updatingQuantityOfGuestCart(productId, quantity))
+    dispatch(updatingQuantityOfGuestCart(productId, quantity)),
+  deleteItemGuestCart: productId => dispatch(deletingItemOfGuestCart(productId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartItem)
