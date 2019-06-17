@@ -7,12 +7,8 @@ import Button from '@material-ui/core/Button'
 const Product = props => {
   const product = props.product
   const cart = props.cart
-  // console.log('PROPS', props);
-  // console.log('CART', cart);
   let cartItem = cart.filter(el => product.id === el.productId)
-  console.log('CART ITEM', cartItem)
   let existingQuant = cartItem[0] ? cartItem[0].quantity : 0
-  console.log('EXISISTING QUANT', existingQuant)
   return (
     <div className="card-contents" key={product.key}>
       <Link to={`/products/${product.id}`}>
