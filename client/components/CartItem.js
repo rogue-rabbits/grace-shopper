@@ -30,8 +30,6 @@ class CartItem extends React.Component {
   }
 
   componentDidMount() {
-    // console.log('prop: ', this.props.item)
-
     this.setState({item: this.props.item, quantity: this.props.item.quantity})
   }
 
@@ -69,7 +67,6 @@ class CartItem extends React.Component {
     const itemTotal = item.product.price * item.quantity / 100
     let quantityArray = Array.from(Array(10).keys())
     return (
-
       <div key={item.productId}>
         <Link to={`/products/${product.id}`}>
           <h2>{item.product.name}</h2>
@@ -130,12 +127,10 @@ class CartItem extends React.Component {
   }
 }
 
-
 const mapStateToProps = state => ({
   user: state.user,
   productList: state.product.allProducts
 })
-
 
 const mapDispatchToProps = dispatch => ({
   updateCart: (userId, itemId, quantity, newQuantity) => {
@@ -150,4 +145,3 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartItem)
-
