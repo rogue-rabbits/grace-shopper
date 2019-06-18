@@ -48,7 +48,6 @@ export function updatingQuantityOfGuestCart(productId, quantity) {
         id: productId,
         quantity: quantity
       })
-      console.log('data ', data)
       dispatch(addToGuestCart(data.products))
     } catch (err) {
       console.log(err)

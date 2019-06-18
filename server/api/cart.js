@@ -56,7 +56,7 @@ router.get('/copyGuestCart', async (req, res, next) => {
             userId: req.user.id
           })
         } else {
-          //if yes, update current cart item's quantity
+          //if yes, update current cart's item quantity
           await Cart.update(
             {quantity: found.dataValues.quantity + item.quantity},
             {

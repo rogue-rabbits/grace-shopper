@@ -17,14 +17,10 @@ class Cart {
     }
   }
   updateQuantity(product, id, quantity) {
-    console.log('ID ', id)
-    console.log('UPDATE PRODUCTS: ', this.products)
     this.products[id].quantity = quantity
   }
   delete(id) {
     let products = {}
-    console.log('ID ', id)
-    console.log('DELETE PRODUCTS: ', this.products)
 
     for (let productId in this.products) {
       if (productId === id) {
@@ -33,14 +29,12 @@ class Cart {
         products[productId] = this.products[productId]
       }
     }
-    console.log('PRODUCTS: ', products)
     this.products = products
   }
 }
 
 router.get('/', (req, res, next) => {
   if (req.session.cart) {
-    console.log(Object.values(req.session.cart.products))
     res.json(req.session.cart)
   } else {
     res.json({})
