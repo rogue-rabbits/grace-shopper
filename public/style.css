@@ -274,3 +274,8 @@ button:disabled {
   color: white;
   background-color: grey;
 }
+
+.isDisabled {
+  pointer-events: none;
+  cursor: not-allowed;
+}
