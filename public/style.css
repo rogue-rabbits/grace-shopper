@@ -261,3 +261,8 @@ input:focus,
   right: 28px;
   color: white;
 }
+
+button:disabled {
+  color: white;
+  background-color: grey;
+}
