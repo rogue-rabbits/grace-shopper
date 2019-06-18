@@ -1,42 +1,55 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {addingToCart, updatingCart} from '../store'
+import {addingToCart, updatingCart, addingToGuestCart} from '../store'
 import Button from '@material-ui/core/Button'
 
-const Product = props => {
-  const product = props.product
-  const cart = props.cart
-  let cartItem = cart.filter(el => product.id === el.productId)
-  let existingQuant = cartItem[0] ? cartItem[0].quantity : 0
-  return (
-    <div className="card-contents" key={product.key}>
-      <Link to={`/products/${product.id}`}>
-        <img
-          className="card-image"
-          src={product.imageUrl}
-          width="200px"
-          height="auto"
-        />
-      </Link>
-      <div className="card-contents">
+class Product extends React.Component {
+  handleAddToCart = () => {
+    //if user is logged in
+    const {product, cart} = this.props
+
+    if (this.props.user.id) {
+      const userId = this.props.user.id
+      let existingItem = cart.filter(el => el.productId === product.id)
+
+      let dataQuantity = existingItem[0] ? existingItem[0].quantity : 0
+      const quantity = 1
+
+      if (existingItem.length) {
+        this.props.updateCart(userId, product.id, quantity, dataQuantity)
+      } else {
+        this.props.addToCart(userId, product.id, quantity)
+      }
+    } else {
+      this.props.addToGuestCart(product.id, 1)
+    }
+  }
+
+  render() {
+    const product = this.props.product
+    return (
+      <div className="card-contents" key={product.id}>
         <Link to={`/products/${product.id}`}>
-          <h2>{product.name}</h2>{' '}
+          <img
+            className="card-image"
+            src={product.imageUrl}
+            width="200px"
+            height="auto"
+          />
         </Link>
-        <h3>Price: ${product.price / 100}</h3>
-        <Button
-          variant="contained"
-          onClick={() =>
-            cartItem.length
-              ? props.updateCart(props.user.id, product.id, existingQuant, 1)
-              : props.addToCart(props.user.id, product.id, 1)
-          }
-        >
-          ADD TO CART
-        </Button>
+        <div className="card-contents">
+          <Link to={`/products/${product.id}`}>
+            <h2>{product.name}</h2>{' '}
+          </Link>
+          <h3>Price: ${product.price / 100}</h3>
+          <Button variant="contained" onClick={this.handleAddToCart}>
+            ADD TO CART
+          </Button>
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 const mapStateToProps = state => ({
@@ -50,7 +63,9 @@ const mapDispatchToProps = dispatch => ({
   },
   updateCart: (userId, itemId, quantity, newQuantity) => {
     dispatch(updatingCart(userId, itemId, quantity, newQuantity))
-  }
+  },
+  addToGuestCart: (productId, quantity) =>
+    dispatch(addingToGuestCart(productId, quantity))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Product)
