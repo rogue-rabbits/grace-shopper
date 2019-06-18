@@ -29,6 +29,7 @@ class Cart extends React.Component {
   render() {
     const {cartList, isLoggedIn} = this.props
     let total = 0
+    console.log('CART LIST LENGTH', cartList.length)
     return (
       <div className="cart-container">
         <Grid container direction="column" alignItems="center" justify="center">
@@ -50,13 +51,23 @@ class Cart extends React.Component {
                   <h2>Order Total: ${total / 100}</h2>
                 </Grid>
                 <Grid item>
-                  <button type="button">
-                    {isLoggedIn ? (
-                      <Link to="/checkout"> Checkout and Pay </Link>
-                    ) : (
-                      <Link to="/login">Login and Checkout</Link>
-                    )}
-                  </button>
+                  {cartList.length ? (
+                    <button type="button">
+                      {isLoggedIn ? (
+                        <Link to="/checkout"> Checkout and Pay </Link>
+                      ) : (
+                        <Link to="/login">Login and Checkout</Link>
+                      )}
+                    </button>
+                  ) : (
+                    <button type="button" disabled className="isDisabled">
+                      {isLoggedIn ? (
+                        <Link to="/checkout"> Checkout and Pay </Link>
+                      ) : (
+                        <Link to="/login">Login and Checkout</Link>
+                      )}
+                    </button>
+                  )}
                 </Grid>
               </Grid>
             </Paper>
