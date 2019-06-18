@@ -26,7 +26,6 @@ class Cart extends React.Component {
 
   render() {
     const {cartList, isLoggedIn} = this.props
-    console.log('cartList ', cartList)
 
     let total = 0
     return (
