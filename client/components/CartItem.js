@@ -76,7 +76,7 @@ class CartItem extends React.Component {
             <Grid item>
               <Link to={`/products/${product.id}`}>
                 <Card>
-                  <img src={product.imageUrl} width="200px" height="auto" />
+                  <img src={product.imageUrl} width="100px" height="auto" />
                 </Card>
               </Link>
             </Grid>
