@@ -5,10 +5,14 @@ import axios from 'axios'
 class CheckoutForm extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      buttonPressed: false
+    }
     this.submit = this.submit.bind(this)
   }
 
   async submit(ev) {
+    this.setState({buttonPressed: true})
     const name = `${this.props.customer.firstName} ${
       this.props.customer.lastName
     }`
@@ -26,7 +30,9 @@ class CheckoutForm extends Component {
     return (
       <div className="checkout">
         <CardElement />
-        <button onClick={this.submit}>Complete Order</button>
+        <button disabled={this.state.buttonPressed} onClick={this.submit}>
+          Complete Order
+        </button>
       </div>
     )
   }
