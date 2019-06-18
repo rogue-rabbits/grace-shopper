@@ -1,6 +1,6 @@
 import React from 'react'
 import {getProduct} from '../store/product'
-import {addingToCart, updatingCart} from '../store/cart'
+import {addingToCart, updatingCart, addingToGuestCart} from '../store/cart'
 import {connect} from 'react-redux'
 import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Paper'
@@ -11,7 +11,10 @@ import meanBy from 'lodash/meanBy'
 class SingleProduct extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {showForm: false}
+    this.state = {
+      showForm: false,
+      quantity: 1
+    }
   }
 
   componentDidMount() {
@@ -24,16 +27,38 @@ class SingleProduct extends React.Component {
     this.setState({showForm: !showForm})
   }
 
+  handleAddToCart = () => {
+    //if user is logged in
+    const {product, cart} = this.props
+
+    if (this.props.user.id) {
+      const userId = this.props.user.id
+      let existingItem = cart.filter(el => el.productId === product.id)
+
+      let dataQuantity = existingItem[0] ? existingItem[0].quantity : 0
+      let quantity = this.state.quantity
+
+      console.log('existingItem ', existingItem)
+      if (existingItem.length) {
+        this.props.updateCart(userId, product.id, quantity, dataQuantity)
+      } else {
+        this.props.addToCart(userId, product.id, quantity)
+      }
+    } else {
+      this.props.addToGuestCart(product.id, this.state.quantity)
+    }
+  }
+
   render() {
     const {product, cart} = this.props
     const userId = this.props.user.id
     const reviews = this.props.product.reviews
     const averageRating = meanBy(reviews, 'rating')
 
-    let quantity = 1
+    // let quantity = 1
     let quantityArray = Array.from(Array(10).keys())
-    let existingItem = cart.filter(el => el.productId === product.id)
-    let dataQuantity = existingItem[0] ? existingItem[0].quantity : 0
+    // let existingItem = cart.filter(el => el.productId === product.id)
+    // let dataQuantity = existingItem[0] ? existingItem[0].quantity : 0
 
     return (
       <>
@@ -49,7 +74,7 @@ class SingleProduct extends React.Component {
             <p> {product.description} </p>
             <select
               onChange={event => {
-                quantity = parseInt(event.target.value)
+                this.setState({quantity: parseInt(event.target.value)})
               }}
             >
               {quantityArray.map((element, index) => {
@@ -63,16 +88,7 @@ class SingleProduct extends React.Component {
             <Button
               variant="contained"
               className="primary-buttons"
-              onClick={() => {
-                existingItem.length
-                  ? this.props.updateCart(
-                      userId,
-                      product.id,
-                      quantity,
-                      dataQuantity
-                    )
-                  : this.props.addToCart(userId, product.id, quantity)
-              }}
+              onClick={this.handleAddToCart}
             >
               Add to Cart
             </Button>
@@ -137,7 +153,9 @@ const mapDispatchToProps = dispatch => ({
   },
   updateCart: (userId, itemId, quantity, newQuantity) => {
     dispatch(updatingCart(userId, itemId, quantity, newQuantity))
-  }
+  },
+  addToGuestCart: (productId, quantity) =>
+    dispatch(addingToGuestCart(productId, quantity))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct)

@@ -2,6 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {CartItem} from './index'
+import Grid from '@material-ui/core/Grid'
+import Paper from '@material-ui/core/Paper'
 
 /**
  * COMPONENT
@@ -26,24 +28,40 @@ class Cart extends React.Component {
 
   render() {
     const {cartList, isLoggedIn} = this.props
-
     let total = 0
     return (
-      <div>
-        <h2>CART</h2>
-        {cartList.map(item => {
-          total += item.product.price * item.quantity
-          return <CartItem key={item.id} item={item} />
-        })}
-        <h2>Order Total: ${total / 100}</h2>
-
-        <button>
-          {isLoggedIn ? (
-            <Link to="/checkout"> Checkout and Pay </Link>
-          ) : (
-            <Link to="/login">Login and Checkout</Link>
-          )}
-        </button>
+      <div className="cart-container">
+        <Grid container direction="column" alignItems="center" justify="center">
+          <Grid item md={8} sm={10}>
+            <Paper className="cart-paper">
+              <h2>CART</h2>
+              <Grid container direction="column" alignItems="center">
+                {cartList.map(item => {
+                  total += item.product.price * item.quantity
+                  return (
+                    <Grid item sm={8} key={item.productId}>
+                      <CartItem key={item.productId} item={item} />
+                    </Grid>
+                  )
+                })}
+              </Grid>
+              <Grid container direction="column" alignContent="flex-end">
+                <Grid item>
+                  <h2>Order Total: ${total / 100}</h2>
+                </Grid>
+                <Grid item>
+                  <button type="button">
+                    {isLoggedIn ? (
+                      <Link to="/checkout"> Checkout and Pay </Link>
+                    ) : (
+                      <Link to="/login">Login and Checkout</Link>
+                    )}
+                  </button>
+                </Grid>
+              </Grid>
+            </Paper>
+          </Grid>
+        </Grid>
       </div>
     )
   }
