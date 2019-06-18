@@ -33,10 +33,6 @@ const OrderHistory = db.define('orderHistory', {
   },
   orderNumber: {
     type: Sequelize.INTEGER
-    // allowNull: false,
-    // validate: {
-    //   notEmpty: true
-    // }
   }
 })
 

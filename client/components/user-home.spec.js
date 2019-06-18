@@ -13,7 +13,9 @@ describe('UserHome', () => {
   let userHome
 
   beforeEach(() => {
-    userHome = shallow(<UserHome name="Cody" />)
+    userHome = shallow(<UserHome name="Cody" />, {
+      disableLifecycleMethods: true
+    })
   })
 
   it('renders the first name in an h3', () => {
