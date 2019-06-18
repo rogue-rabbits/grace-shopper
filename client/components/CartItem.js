@@ -1,7 +1,13 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {updatingCart, deletingItem} from '../store/cart'
+import {
+  updatingCart,
+  deletingItem,
+  updatingQuantityOfGuestCart,
+  deletingItemOfGuestCart
+} from '../store/cart'
+
 import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Paper'
 import Icon from '@material-ui/core/Icon'
@@ -37,14 +43,22 @@ class CartItem extends React.Component {
 
   handleSubmit(evt) {
     evt.preventDefault()
-    const item = this.state.item
-    const quantity = this.state.quantity
-    this.props.updateCart(item.userId, item.product.id, 0, quantity)
+    if (this.props.user.id) {
+      const item = this.state.item
+      const quantity = this.state.quantity
+      this.props.updateCart(item.userId, item.product.id, 0, quantity)
+    } else {
+      this.props.updateGuestCart(this.state.item.productId, this.state.quantity)
+    }
   }
 
   handleDelete() {
     const productId = this.state.item.productId
-    this.props.deleteItem(productId)
+    if (this.props.user.id) {
+      this.props.deleteItem(productId)
+    } else {
+      this.props.deleteItemGuestCart(productId)
+    }
   }
 
   render() {
@@ -55,7 +69,8 @@ class CartItem extends React.Component {
     const itemTotal = item.product.price * item.quantity / 100
     let quantityArray = Array.from(Array(10).keys())
     return (
-      <div key={item.id}>
+
+      <div key={item.productId}>
         <Link to={`/products/${product.id}`}>
           <h2>{item.product.name}</h2>
         </Link>
@@ -115,11 +130,12 @@ class CartItem extends React.Component {
   }
 }
 
-const mapStatetoProps = state => {
-  return {
-    productList: state.product.allProducts
-  }
-}
+
+const mapStateToProps = state => ({
+  user: state.user,
+  productList: state.product.allProducts
+})
+
 
 const mapDispatchToProps = dispatch => ({
   updateCart: (userId, itemId, quantity, newQuantity) => {
@@ -127,7 +143,11 @@ const mapDispatchToProps = dispatch => ({
   },
   deleteItem: productId => {
     dispatch(deletingItem(productId))
-  }
+  },
+  updateGuestCart: (productId, quantity) =>
+    dispatch(updatingQuantityOfGuestCart(productId, quantity)),
+  deleteItemGuestCart: productId => dispatch(deletingItemOfGuestCart(productId))
 })
 
-export default connect(mapStatetoProps, mapDispatchToProps)(CartItem)
+export default connect(mapStateToProps, mapDispatchToProps)(CartItem)
+

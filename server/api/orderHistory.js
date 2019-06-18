@@ -40,12 +40,16 @@ router.get('/lastOrder', async (req, res, next) => {
 
 router.get('/', async (req, res, next) => {
   try {
-    const order = await OrderHistory.findAll({
-      where: {
-        userId: req.user.id
-      }
-    })
-    res.json(order)
+    if (req.user) {
+      const order = await OrderHistory.findAll({
+        where: {
+          userId: req.user.id
+        }
+      })
+      res.json(order)
+    } else {
+      res.send('user not logged in')
+    }
   } catch (err) {
     next(err)
   }
