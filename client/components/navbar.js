@@ -45,7 +45,6 @@ const Navbar = ({handleClick, isLoggedIn, cart}) => {
   )
 }
 
-
 /**
  * CONTAINER
  */
