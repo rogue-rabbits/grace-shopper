@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {
   updatingCart,
@@ -6,6 +7,10 @@ import {
   updatingQuantityOfGuestCart,
   deletingItemOfGuestCart
 } from '../store/cart'
+
+import Grid from '@material-ui/core/Grid'
+import Card from '@material-ui/core/Paper'
+import Icon from '@material-ui/core/Icon'
 
 /**
  * COMPONENT
@@ -58,44 +63,79 @@ class CartItem extends React.Component {
 
   render() {
     const item = this.props.item
+    const [product] = this.props.productList.filter(
+      el => el.id === item.productId
+    )
     const itemTotal = item.product.price * item.quantity / 100
     let quantityArray = Array.from(Array(10).keys())
     return (
-      <div key={item.productId}>
-        <h2>{item.product.name}</h2>
-        <h3>Price: ${item.product.price / 100}</h3>
-        <h3>
-          <div>Quantity: {item.quantity}</div>
-          <select
-            onChange={event => {
-              this.setState({quantity: parseInt(event.target.value)})
-            }}
-            defaultValue={this.state.quantity}
-          >
-            {quantityArray.map((element, index) => {
-              return (
-                <option key={element} value={index + 1}>
-                  {element + 1}
-                </option>
-              )
-            })}
-          </select>
 
-          <button type="submit" onClick={this.handleSubmit}>
-            Update Quantity
-          </button>
-          <button type="button" onClick={this.handleDelete}>
-            Remove
-          </button>
-        </h3>
+      <div key={item.productId}>
+        <Link to={`/products/${product.id}`}>
+          <h2>{item.product.name}</h2>
+        </Link>
+        <Grid container direction="column" alignItems="flex-end">
+          <Grid container justify="center">
+            <Grid item>
+              <Link to={`/products/${product.id}`}>
+                <Card>
+                  <img src={product.imageUrl} width="200px" height="auto" />
+                </Card>
+              </Link>
+            </Grid>
+            <Grid item>
+              <button type="button" onClick={this.handleDelete}>
+                Remove
+                {/* <i className="material-icons md-dark">trash</i> */}
+                {/* <i className="fas fa-trash-alt" /> */}
+              </button>
+            </Grid>
+            <Grid item>
+              <Grid container justify="space-between">
+                <Grid item>
+                  <h3>Price: ${item.product.price / 100}</h3>
+                </Grid>
+                <Grid item>
+                  <h3>Quantity: {item.quantity}</h3>
+                </Grid>
+              </Grid>
+              <Grid item>
+                <Grid container alignItems="center">
+                  <Grid item>
+                    <select
+                      onChange={event => {
+                        this.setState({quantity: parseInt(event.target.value)})
+                      }}
+                      defaultValue={this.state.quantity}
+                    >
+                      {quantityArray.map((element, index) => {
+                        return (
+                          <option key={element} value={index + 1}>
+                            {element + 1}
+                          </option>
+                        )
+                      })}
+                    </select>
+                    <button type="submit" onClick={this.handleSubmit}>
+                      Update Quantity
+                    </button>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
       </div>
     )
   }
 }
 
+
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
+  productList: state.product.allProducts
 })
+
 
 const mapDispatchToProps = dispatch => ({
   updateCart: (userId, itemId, quantity, newQuantity) => {
@@ -110,3 +150,4 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartItem)
+

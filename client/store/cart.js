@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {REMOVE_USER} from './user'
 
 // Action Type
 const GET_CART = 'GET_CART'
@@ -183,6 +184,8 @@ export default function(state = [], action) {
       return []
     case ADD_TO_GUEST_CART:
       return [...Object.values(action.items)]
+    case REMOVE_USER:
+      return []
     default:
       return state
   }
