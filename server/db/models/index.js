@@ -22,7 +22,7 @@ const Review = require('./review')
 // Cart.hasMany(User)
 
 // Product.belongsTo(Cart)
-Cart.belongsTo(Product)
+Cart.hasMany(Product)
 Cart.belongsTo(User)
 OrderHistory.belongsTo(User)
 Review.belongsTo(Product)
