@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {addingToCart, updatingCart} from '../store'
 import Button from '@material-ui/core/Button'
 
-const Product = props => {
+export const Product = props => {
   const product = props.product
   const cart = props.cart
   let cartItem = cart.filter(el => product.id === el.productId)
