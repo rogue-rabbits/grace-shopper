@@ -65,6 +65,23 @@ export function deletingItemOfGuestCart(productId) {
     }
   }
 }
+
+export function copyingGuestCartToDatabase() {
+  return async dispatch => {
+    try {
+      // set cart store back to empty after log in
+      dispatch(getCart([]))
+      // copy guest cart to our database
+      await axios.get('/api/cart/copyGuestCart')
+      // get the data that was added to database
+      const {data} = await axios.get('/api/cart')
+      dispatch(getCart(data))
+    } catch (error) {
+      confirm.log(error)
+    }
+  }
+}
+
 export function addingToCart(userId, itemId, quantity) {
   return async dispatch => {
     try {
