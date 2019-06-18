@@ -7,6 +7,7 @@ const ADD_TO_CART = 'ADD_TO_CART'
 const UPDATE_CART = 'UPDATE_CART'
 const EMPTY_CART = 'EMPTY_CART'
 const DELETE_ITEM = 'DELETE_ITEM'
+const ADD_TO_GUEST_CART = 'ADD_TO_GUEST_CART'
 
 //Action Creators
 const getCart = items => ({type: GET_CART, items})
@@ -18,10 +19,69 @@ const updateCart = item => ({
   type: UPDATE_CART,
   item
 })
+
+const addToGuestCart = items => ({
+  type: ADD_TO_GUEST_CART,
+  items
+})
+
 export const emptyCart = () => ({type: EMPTY_CART})
 const deleteItem = productId => ({type: DELETE_ITEM, productId})
 
 //Thunk Creators
+export function addingToGuestCart(productId, quantity) {
+  return async dispatch => {
+    try {
+      let {data} = await axios.post(`/api/guestcart/add-to-cart/`, {
+        id: productId,
+        quantity: quantity
+      })
+      dispatch(addToGuestCart(data.products))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+export function updatingQuantityOfGuestCart(productId, quantity) {
+  return async dispatch => {
+    try {
+      let {data} = await axios.post(`/api/guestcart/update-quantity/`, {
+        id: productId,
+        quantity: quantity
+      })
+      dispatch(addToGuestCart(data.products))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+export function deletingItemOfGuestCart(productId) {
+  return async dispatch => {
+    try {
+      let {data} = await axios.get(`/api/guestcart/deleteItem/${productId}`)
+      dispatch(addToGuestCart(data.products))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export function copyingGuestCartToDatabase() {
+  return async dispatch => {
+    try {
+      // set cart store back to empty after log in
+      dispatch(getCart([]))
+      // copy guest cart to our database
+      await axios.get('/api/cart/copyGuestCart')
+      // get the data that was added to database
+      const {data} = await axios.get('/api/cart')
+      dispatch(getCart(data))
+    } catch (error) {
+      confirm.log(error)
+    }
+  }
+}
+
 export function addingToCart(userId, itemId, quantity) {
   return async dispatch => {
     try {
@@ -122,6 +182,8 @@ export default function(state = [], action) {
       return newState
     case EMPTY_CART:
       return []
+    case ADD_TO_GUEST_CART:
+      return [...Object.values(action.items)]
     case REMOVE_USER:
       return []
     default:
