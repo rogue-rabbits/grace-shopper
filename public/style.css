@@ -111,11 +111,16 @@ form div {
 .product-description {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-self: center;
 }
 
 #primary-buttons {
   margin: 30px;
+}
+
+#user {
+  display: flex;
+  align-items: center;
 }
 
 .order-contents {

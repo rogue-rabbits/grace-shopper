@@ -1,5 +1,6 @@
 import axios from 'axios'
 import {REMOVE_USER} from './user'
+import {DELETE_USER} from './users'
 
 // Action Type
 const GET_CART = 'GET_CART'
@@ -97,7 +98,7 @@ export function addingToCart(userId, itemId, quantity) {
       //attach product information to newCartItem
       data.product = product.data
       //get req.user from express
-      const user = await axios.get('/api/user')
+      const user = await axios.get(`/api/users/${userId}`)
       //attach user information to newCartItem
       data.user = user.data
       dispatch(addToCart(data))
@@ -121,7 +122,7 @@ export function updatingCart(userId, itemId, selectedQuantity, dataQuantity) {
       //attach product information to newCartItem
       data.product = product.data
       //get req.user from express
-      const user = await axios.get('/api/user')
+      const user = await axios.get(`/api/users/${userId}`)
       //attach user information to newCartItem
       data.user = user.data
       dispatch(updateCart(data))
@@ -180,6 +181,9 @@ export default function(state = [], action) {
     case DELETE_ITEM:
       let newState = state.filter(item => item.productId !== action.productId)
       return newState
+    case DELETE_USER:
+      let newstate = state.filter(item => item.userId !== action.userId)
+      return newstate
     case EMPTY_CART:
       return []
     case ADD_TO_GUEST_CART:

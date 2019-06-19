@@ -12,7 +12,8 @@ import {
   Cart,
   Checkout,
   OrderConfirm,
-  AccountInfo
+  AccountInfo,
+  Users
 } from './components'
 import {
   me,
@@ -51,6 +52,7 @@ class Routes extends Component {
             <Route path="/checkout" component={Checkout} />
             <Route path="/orderconfirm" component={OrderConfirm} />
             <Route path="/accountinfo" component={AccountInfo} />
+            <Route path="/users" component={Users} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
