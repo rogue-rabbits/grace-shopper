@@ -186,18 +186,17 @@ class Checkout extends Component {
                     </Grid>
                   </Grid>
                 </div>
-                {/* <Button type="submit" className="form-button">
-                  Submit Order
-                </Button> */}
               </form>
-              <StripeProvider apiKey="pk_test_x3CRlnur814woLKzHiOX9Feq00wXadZoZZ">
-                <Elements>
-                  <CheckoutForm
-                    customer={this.state}
-                    handleSubmit={this.handleSubmit}
-                  />
-                </Elements>
-              </StripeProvider>
+              <div className="checkout">
+                <StripeProvider apiKey="pk_test_x3CRlnur814woLKzHiOX9Feq00wXadZoZZ">
+                  <Elements>
+                    <CheckoutForm
+                      customer={this.state}
+                      handleSubmit={this.handleSubmit}
+                    />
+                  </Elements>
+                </StripeProvider>
+              </div>
             </Paper>
           </Grid>
         </Grid>
