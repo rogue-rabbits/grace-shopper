@@ -98,7 +98,7 @@ export function addingToCart(userId, itemId, quantity) {
       //attach product information to newCartItem
       data.product = product.data
       //get req.user from express
-      const user = await axios.get('/api/user')
+      const user = await axios.get(`/api/users/${userId}`)
       //attach user information to newCartItem
       data.user = user.data
       dispatch(addToCart(data))
@@ -122,7 +122,7 @@ export function updatingCart(userId, itemId, selectedQuantity, dataQuantity) {
       //attach product information to newCartItem
       data.product = product.data
       //get req.user from express
-      const user = await axios.get('/api/user')
+      const user = await axios.get(`/api/users/${userId}`)
       //attach user information to newCartItem
       data.user = user.data
       dispatch(updateCart(data))
