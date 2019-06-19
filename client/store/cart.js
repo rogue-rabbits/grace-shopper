@@ -1,5 +1,6 @@
 import axios from 'axios'
 import {REMOVE_USER} from './user'
+import {DELETE_USER} from './users'
 
 // Action Type
 const GET_CART = 'GET_CART'
@@ -180,6 +181,9 @@ export default function(state = [], action) {
     case DELETE_ITEM:
       let newState = state.filter(item => item.productId !== action.productId)
       return newState
+    case DELETE_USER:
+      let newstate = state.filter(item => item.userId !== action.userId)
+      return newstate
     case EMPTY_CART:
       return []
     case ADD_TO_GUEST_CART:

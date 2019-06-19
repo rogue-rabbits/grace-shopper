@@ -5,6 +5,7 @@ import {getCartThunk, getItemsThunk} from '.'
 /**
  * ACTION TYPES
  */
+
 const GET_USER = 'GET_USER'
 export const REMOVE_USER = 'REMOVE_USER'
 
@@ -16,6 +17,7 @@ const defaultUser = {}
 /**
  * ACTION CREATORS
  */
+
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
 
