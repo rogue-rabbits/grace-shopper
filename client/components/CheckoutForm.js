@@ -29,7 +29,7 @@ class CheckoutForm extends Component {
   render() {
     return (
       <div className="checkout">
-        <CardElement />
+        <CardElement className="credit-card" />
         <button disabled={this.state.buttonPressed} onClick={this.submit}>
           Complete Order
         </button>
