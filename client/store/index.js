@@ -8,7 +8,7 @@ import cart from './cart'
 import orderHistory from './orderHistory'
 import users from './users'
 
-const reducer = combineReducers({
+export const reducer = combineReducers({
   user,
   product,
   cart,

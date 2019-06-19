@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {AllProducts} from './index.js'
 import {copyingGuestCartToDatabase} from '../store/cart'
+import {getLastOrderThunk} from '../store/orderHistory'
 
 /**
  * COMPONENT
@@ -10,6 +11,7 @@ import {copyingGuestCartToDatabase} from '../store/cart'
 export class UserHome extends React.Component {
   componentDidMount() {
     this.props.copyGuestCartToDatabase()
+    this.props.getLastOrder()
   }
 
   render() {
@@ -34,7 +36,8 @@ const mapState = state => {
 }
 
 const mapDispatch = dispatch => ({
-  copyGuestCartToDatabase: () => dispatch(copyingGuestCartToDatabase())
+  copyGuestCartToDatabase: () => dispatch(copyingGuestCartToDatabase()),
+  getLastOrder: () => dispatch(getLastOrderThunk())
 })
 
 export default connect(mapState, mapDispatch)(UserHome)
